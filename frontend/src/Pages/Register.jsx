@@ -1,37 +1,34 @@
 import { useState } from "react";
+import RegisterForm from "../components/Register/RegisterForm";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function Register() {
-  const [status, setStatus] = useState("undefined");
+  const { type } = useParams();
+  const status = type;
+  //   const [status, setStatus] = useState(id);
+
+  const navigate = useNavigate();
 
   return (
     <>
-      <h1>Register</h1>
-      {status === "undefined" && (
-        <div>
-          <p>Etes-vous un étudiant ou une entreprise ?</p>
-          <div>
-            <button onClick={() => setStatus("student")}>Etudiant</button>
-          </div>
-          <div>
-            <button onClick={() => setStatus("compagny")}>Entreprise</button>
-          </div>
-        </div>
-      )}
-
       {status === "student" && (
         <div>
-          <p>Bienvenue jeune étudiant</p>
-          <div>
-            <p onClick={() => setStatus("compagny")}>Tu es une entreprise ?</p>
-          </div>
+          <p>Bienvenue sur Dev Hive</p>
+          <RegisterForm />
+          <p onClick={() => navigate("/register/compagny")}>
+            S'inscrire en tant qu'entreprise
+          </p>
         </div>
       )}
 
       {status === "compagny" && (
         <div>
-          <p>Bienvenue sur DevHunt</p>
+          <p>Bienvenue sur Dev Hive</p>
+          <RegisterForm />
           <div>
-            <p onClick={() => setStatus("student")}>Tu es un etudiant ?</p>
+            <p onClick={() => navigate("/register/student")}>
+              Tu es un etudiant ?
+            </p>
           </div>
         </div>
       )}
