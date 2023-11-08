@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RegisterForm from "../components/Register/RegisterForm";
 import { useNavigate, useParams } from "react-router-dom";
 
 export function Register() {
   const { type } = useParams();
   const status = type;
-  //   const [status, setStatus] = useState(id);
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:3000/")
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
 
   const navigate = useNavigate();
 
@@ -14,6 +22,7 @@ export function Register() {
       {status === "student" && (
         <div>
           <p>Bienvenue sur Dev Hive</p>
+          <p>{data ? data.email : "Chargement"}</p>
           <RegisterForm />
           <p onClick={() => navigate("/register/compagny")}>
             S'inscrire en tant qu'entreprise
