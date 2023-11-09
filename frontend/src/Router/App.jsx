@@ -2,8 +2,8 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LandingPage } from "../pages/LandingPage";
 import { Register } from "../pages/Register";
-import { Login } from "../pages/Login";
-import Profile from "../pages/Profile";
+import { Login } from "../Pages/Login";
+import { Profile } from "../Pages/Profile";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />}></Route>
             <Route path="/register/:type" element={<Register />}></Route>
-            <Route path="/login/" element={<Login />}></Route>
+            <Route path="/login/:type" element={<Login />}></Route>
             <Route path="/profil" element={<Profile />}></Route>
             <Route></Route>
           </Routes>
