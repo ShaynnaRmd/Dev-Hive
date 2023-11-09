@@ -1,0 +1,29 @@
+#root{
+    --white: #f8f8f8;
+    --violet: #8200E9;
+    --blue: #1170FF;
+    --black: #141414;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    background-color: black;
+}
+
+.container
+{
+    height:100%;
+    width: 100%;
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.bloptop{
+    position: absolute;
+    right: 35%;
+    top: -75%;
+}
+
+.blopmid{
+    position: absolute;
+}
