@@ -2,6 +2,12 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
 export function Login() {
+  fetch("https://appleid.apple.com/appleid/button/left")
+    .then((response) => response.json())
+    .then((button) => {
+      console.log(button);
+    });
+
   return (
     <>
       <GoogleLogin

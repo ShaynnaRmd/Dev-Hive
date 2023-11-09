@@ -1,14 +1,15 @@
 import { useState } from "react";
 
-export function Input({ type, label, onChange }) {
-  const [value, setValue] = useState("");
+export function Input({ type, label, onChange, value }) {
+  const [inputValue, setInputValue] = useState("");
   const handleChange = (e) => {
-    setValue(e.target.value);
+    setInputValue(e.target.value);
+    onChange(e.target.value);
   };
   return (
     <label>
       {label}
-      <input type={type} value={value} onChange={handleChange} />
+      <input type={type} value={inputValue} onChange={handleChange} />
     </label>
   );
 }
