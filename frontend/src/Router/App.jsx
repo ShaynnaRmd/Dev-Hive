@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LandingPage } from "../pages/LandingPage";
+import '../App.css'
 import { Register } from "../pages/Register";
 import { Login } from "../Pages/Login";
 import { Profile } from "../Pages/Profile";
