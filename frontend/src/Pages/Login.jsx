@@ -1,7 +1,7 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { Form } from "../components/Form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import blopTop from "../assets/svg/blobtop.svg";
 import blopMid from "../assets/svg/blobtop.svg";
@@ -13,14 +13,39 @@ export function Login() {
   const { type } = useParams();
   const navigate = useNavigate();
 
-  const data = {
-    username: "Lucas",
-    password: "lucas",
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = {
+        email: "yyyy",
+        password: "yyyy",
+      };
 
-  fetch("http://localhost:3000/users/createaccount", data)
-    .then((response) => response.json())
-    .then((res) => console.log(res));
+      try {
+        const response = await fetch("http://localhost:3000/users/createaccount", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error('Erreur lors de la requête fetch:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  // const data = {
+  //   email: "Lucas",
+  //   password: "lucas",
+  // };
+
+  // fetch("users/createaccount", data)
+  //   .then((res) => res.json())
+  //   .then((res) => console.log(res));
   const formFields = [
     { type: "email", label: "Email", value: inputValues[0] },
     { type: "password", label: "Mot de passe", value: inputValues[1] },
