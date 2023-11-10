@@ -1,3 +1,5 @@
-const DB_URI = "mongodb+srv://imene:csnEYkZmceBRnCdM@cluster0.vuj1iyk.mongodb.net/"
+require('dotenv').config();
 
-module.exports = {DB_URI}
+const DB_URI = process.env.MONGODB_URI;
+
+module.exports = { DB_URI };
