@@ -14,7 +14,6 @@ export function Form({ fields, onSubmit, submitValue, status }) {
 
   const SubmitForm = (e) => {
     e.preventDefault();
-    console.log(e);
     onSubmit(inputValues);
   };
 
@@ -44,7 +43,16 @@ export function Form({ fields, onSubmit, submitValue, status }) {
             </p>
           )}
         </div>
-        <input type="submit" value={submitValue} className={styles.submit} />
+        <input
+          type="submit"
+          value={submitValue}
+          className={styles.submit}
+          style={
+            status === "registerCompagny"
+              ? { backgroundColor: "#28A708" }
+              : { backgroundColor: "#8200E9" }
+          }
+        />
       </form>
     </>
   );

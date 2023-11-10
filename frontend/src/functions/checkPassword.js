@@ -1,6 +1,6 @@
 function isPasswordValid(password){
-    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
-
+    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,}$/
+    // At least one uppercase, one lowercase, one number and allow special character
     const response = regexPassword.test(password)
     return response 
 
