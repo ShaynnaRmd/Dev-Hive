@@ -3,9 +3,6 @@ import { jwtDecode } from "jwt-decode";
 import { Form } from "../components/Form";
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import blopTop from "../assets/svg/blobtop.svg";
-import blopMid from "../assets/svg/blobtop.svg";
-import blopDown from "../assets/svg/blobtop.svg";
 import styles from "../assets/css/Register.module.css";
 
 export function Login() {
@@ -35,9 +32,12 @@ export function Login() {
       <div className={styles.bloptop}>
         <img src={blopTop} alt="" />
       </div>
-      <div className={styles.blopmid}>
+      {/* <div className={styles.blopmid}>
         <img src={blopMid} alt="blob-mid" />
       </div>
+      <div className={styles.blopdown}>
+        <img src={blopDown} alt="blob-mid" />
+      </div> */}
       {/* <div>
         <img src={blopDown} alt="blob-down" />
       </div> */}
