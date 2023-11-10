@@ -2,9 +2,8 @@ var express = require("express");
 var router = express.Router();
 const userStudent = require("../models/user_student");
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
 
-/* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
@@ -32,48 +31,54 @@ router.post("/login", async function (req, res, next) {
   return res.json({ success: false, msg: `email ou mot de passe invalide` });
 });
 
-router.post("/createaccount", async function (req, res, next) {
+router.get("/createaccount", async function (req, res, next) {
   const { email, password } = req.body;
 
-  if (email == undefined || password == undefined) {
-    return res.json({ err: true, msg: `rentrez tous les champs` });
+  try {
+    if (email == undefined || password == undefined) {
+      return res.json({ err: true, msg: `rentrez tous les champs` });
+    }
+
+    const check_email = await userStudent.findOne({ email });
+
+    if (check_email) {
+      return res.json({
+        success: false,
+        msg: `${email} est déjà associé à un compte`,
+      });
+    }
+
+    const hash_password = await hashPassword(password, 10);
+
+    const user = await userStudent.create({
+      ...req.body,
+      password: hash_password,
+    });
+    return res.json({ success: true, data: user });
+  } catch {
+    res.json({ success: true, data: user });
   }
-
-  const check_email = await userStudent.findOne({ email });
-  
-  if (check_email) {
-    return res.json({success: false, msg: `${email} est déjà associé à un compte`})
-  }
-
-  const hash_password = await hashPassword(password, 10)
-
-  const user = await userStudent.create({ ...req.body, password: hash_password });
-  return res.json({ success: true, data: user });
 });
 
 module.exports = router;
 
 // Fonction pour hasher le password
-const hashPassword = async(password, saltRounds) => {
-  try{
-    const salt = await bcrypt.genSalt(saltRounds)
-    return await bcrypt.hash(password, salt)
-  } catch (error){
-    cpnsole.log(error)
+const hashPassword = async (password, saltRounds) => {
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    return await bcrypt.hash(password, salt);
+  } catch (error) {
+    cpnsole.log(error);
   }
-  return null
-}
+  return null;
+};
 
-// Foonction de comparaison mmdp rentré dans le form et mdp dans la bdd
-function compareAsync(password, hash_password) {
-  return new Promise(function (resolve, reject) {
-    bcrypt.compare(password, hash_password, function (err, res) {
-      if (err) {
-        reject(err);
-      }
-      if (res) {
-        resolve(res);
-      }
-    });
-  });
+// Fonction pour comparer les mots de passe 
+async function compareAsync(password, hash_password) {
+  try {
+    const match = await bcrypt.compare(password, hash_password);
+    return match;
+  } catch (error) {
+    throw error; 
+  }
 }
