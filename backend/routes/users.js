@@ -1,62 +1,70 @@
-var express = require("express");
+// Import modules nécéssaires
+var express = require("express"); // Pour créer les routes
 var router = express.Router();
-const userStudent = require("../models/user_student");
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose"); // Pour intéragir avec la BDD MongoDB
+const bcrypt = require("bcryptjs"); // Pour le hashage des mots de passe
+const userStudents = require("../models/user_students");
+const userCompanies = require("../models/user_companies");
 
+// Route par défaut renvoyant un msg quand on accède à la racine de la route
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 
+// Route pour la connexion
 router.post("/login", async function (req, res, next) {
   const { email, password } = req.body;
 
+  // Vérifications du remplissage des champs "email" et "mot de passe" ; renvoi d'un message d'erreur si l'un des champs manque
   if (email == undefined || password == undefined) {
-    return res.json({ err: true, msg: `rentrez tous les champs` });
+    return res.json({ err: true, msg: `Veuillez renseigner tous les champs.` });
   }
 
-  const check_user = await userStudent.findOne({ email });
+  // Recherche de l'email fourni dans la bdd avec la méthode findOne ; renvoi d'un message d'erreur si aucun compte n'est associé à l'email fourni
+  const check_user = await userStudents.findOne({ email });
   if (!check_user) {
     return res.json({
-      success: false,
-      msg: `${email} n'est asocié à aucun compte.`,
+      success: false, // remplacer success: false par err: true ?
+      msg: `L'adresse email ${email} n'est asociée à aucun compte.`,
     });
   }
 
-  const check_password = await compareAsync(password, check_user.password);
+  // Vérification du mdp fourni en le comparant avec celui hashé dans la bdd avec la fonction "comparePassword" (fonction ligne #) ; renvoie les données de l'utilisateur si le smdp correspondent
+  const check_password = await comparePassword(password, check_user.password);
   if (check_password == true) {
-    return res.json({ success: true, data: check_user });
+    return res.json({ success: true, data: check_user }); 
   }
 
-  return res.json({ success: false, msg: `email ou mot de passe invalide` });
+  // Renvoie un message d'erreur si les mots de passe ne correspondent pas
+  return res.json({ success: false, msg: `L'adresse email ou le mot de passe est invalide, veuillez réessayer.` });
 });
 
+// Route pour la création de compte
 router.get("/createaccount", async function (req, res, next) {
   const { email, password } = req.body;
 
   try {
     if (email == undefined || password == undefined) {
-      return res.json({ err: true, msg: `rentrez tous les champs` });
+      return res.json({ err: true, msg: `Veuillez renseigner tous les champs.` });
     }
 
-    const check_email = await userStudent.findOne({ email });
-
+    const check_email = await userStudents.findOne({ email });
     if (check_email) {
       return res.json({
         success: false,
-        msg: `${email} est déjà associé à un compte`,
+        msg: `L'adresse email ${email} est déjà associée à un compte.`,
       });
     }
 
     const hash_password = await hashPassword(password, 10);
 
-    const user = await userStudent.create({
+    const user = await userStudents.create({
       ...req.body,
       password: hash_password,
     });
     return res.json({ success: true, data: user });
-  } catch {
-    res.json({ success: true, data: user });
+  } catch (error) {
+    return res.json({ error: true, msg: `Une erreur s'est produite lors de la création du compte` });
   }
 });
 
@@ -68,13 +76,17 @@ const hashPassword = async (password, saltRounds) => {
     const salt = await bcrypt.genSalt(saltRounds);
     return await bcrypt.hash(password, salt);
   } catch (error) {
-    cpnsole.log(error);
+    console.log(error);
   }
   return null;
 };
 
+// Notes sur "salt":
+// Le sel/salt est une chaîne aléatoire utilisée pour renforcer le processus de hachage.
+// Le nombre de "tours" de génération de sel est spécifié par saltRounds.
+   
 // Fonction pour comparer les mots de passe 
-async function compareAsync(password, hash_password) {
+async function comparePassword(password, hash_password) {
   try {
     const match = await bcrypt.compare(password, hash_password);
     return match;
