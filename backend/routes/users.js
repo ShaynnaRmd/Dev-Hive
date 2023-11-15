@@ -73,12 +73,15 @@ async function (req, res, next) {
       return res.json({ success: false, msg: `Veuillez renseigner tous les champs.` });
     }
 
-    const check_email = await Promise.all([
-      userStudents.findOne({ email }),
-      userCompanies.findOne({ email }),
-    ])
+    // const check_email = await Promise.all([
+    //   userStudents.findOne({ email }),
+    //   userCompanies.findOne({ email }),
+    // ])
 
-    if (check_email) {
+    const check_user_student = await userStudents.findOne({email})
+    const check_user_company = await userCompanies.findOne({email})
+
+    if (check_user_student || check_user_company){
       return res.json({ success: false, msg: `L'adresse email ${email} est déjà associée à un compte.` });
     }
 
@@ -114,12 +117,10 @@ async function (req, res, next) {
       return res.json({ success: false, msg: `Veuillez renseigner tous les champs.` });
     }
 
-    const check_email = await Promise.all([
-      userStudents.findOne({ email }),
-      userCompanies.findOne({ email }),
-    ])
+    const check_user_student = await userStudents.findOne({email})
+    const check_user_company = await userCompanies.findOne({email})
 
-    if (check_email) {
+    if (check_user_student || check_user_company){
       return res.json({ success: false, msg: `L'adresse email ${email} est déjà associée à un compte.` });
     }
 
