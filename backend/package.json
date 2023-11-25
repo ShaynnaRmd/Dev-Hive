@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+<<<<<<< HEAD
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -16,6 +17,17 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mongoose": "^8.0.0",
+=======
+    "start": "node --watch ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+>>>>>>> 74a8a81f2a98228eed45a8b7b9b94ca53590e300
     "morgan": "~1.9.1"
   }
 }
