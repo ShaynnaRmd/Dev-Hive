@@ -1,5 +1,5 @@
 const userStudents = require("../models/user_students")
-const userCompanies = require("../models/user_companies")
+// const userCompanies = require("../models/user_companies")
 const { body, validationResult } = require("express-validator") // Pour validation et désinfection des inputs dans le body
 
 // --------------------MODULES--------------------
@@ -75,54 +75,54 @@ module.exports.updateProfileStudent = async (req, res, next) => {
     }
 }
 
-module.exports.displayProfileCompany = async (req, res, next) => {
-    try {
+// module.exports.displayProfileCompany = async (req, res, next) => {
+//     try {
         
-    } catch (error) {
-        console.log(error)
-    }
-}
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 
-module.exports.updateProfileCompany = async (req, res, next) => {
-    try {
-        // const updatedProfile = await userCompanies.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-        // return res.status(200).json({ success: true, data: updatedProfile })
+// module.exports.updateProfileCompany = async (req, res, next) => {
+//     try {
+//         // const updatedProfile = await userCompanies.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+//         // return res.status(200).json({ success: true, data: updatedProfile })
 
-        const { 
-            name, logo, sector, company_length,
-            country, city,
-            baseline, description_body, stack,
-            title, contract_type, duration, pins_profile
-         } = req.body || {}
+//         const { 
+//             name, logo, sector, company_length,
+//             country, city,
+//             baseline, description_body, stack,
+//             title, contract_type, duration, pins_profile
+//          } = req.body || {}
 
-         const updatedProfile = await userCompanies.findByIdAndUpdate(
-            req.params.id,
-            { $set: {
-                "profile.name": name,
-                "profile.logo": logo,
-                "profile.sector": sector,
-                "profile.company_length": company_length,
+//          const updatedProfile = await userCompanies.findByIdAndUpdate(
+//             req.params.id,
+//             { $set: {
+//                 "profile.name": name,
+//                 "profile.logo": logo,
+//                 "profile.sector": sector,
+//                 "profile.company_length": company_length,
 
-                "profile.location.country": country,
-                "profile.location.city": city,
+//                 "profile.location.country": country,
+//                 "profile.location.city": city,
 
-                "profile.description.baseline": baseline,
-                "profile.description.body": description_body,
-                "profile.description.stack": stack,
+//                 "profile.description.baseline": baseline,
+//                 "profile.description.body": description_body,
+//                 "profile.description.stack": stack,
 
-                "profile.vacancy.title": title,
-                "profile.vacancy.contract_type": contract_type,
-                "profile.vacancy.duration": duration,
-                "profile.vacancy.pins_profile": pins_profile,
+//                 "profile.vacancy.title": title,
+//                 "profile.vacancy.contract_type": contract_type,
+//                 "profile.vacancy.duration": duration,
+//                 "profile.vacancy.pins_profile": pins_profile,
 
-            }}, { new: true, runValidators: true }
-         )
+//             }}, { new: true, runValidators: true }
+//          )
 
-        await updatedProfile.save()
-        return res.status(200).json({ succcess: true, date: updatedProfile })
+//         await updatedProfile.save()
+//         return res.status(200).json({ succcess: true, date: updatedProfile })
 
-    } catch (error) {
-        console.log(error)
-        return res.json({ success: false, err: error })
-    }
-}
+//     } catch (error) {
+//         console.log(error)
+//         return res.json({ success: false, err: error })
+//     }
+// }

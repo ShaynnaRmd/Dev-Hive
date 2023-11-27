@@ -1,5 +1,5 @@
 const userStudents = require("../models/user_students")
-const userCompanies = require("../models/user_companies")
+// const userCompanies = require("../models/user_companies")
 const token = require("../models/token")
 
 const bcrypt = require("bcryptjs"); // Pour le hashage des mots de passe
@@ -92,43 +92,43 @@ module.exports.registerStudent = [
     }
 ]
 
-module.exports.registerCompany = [
-    body('email').isEmail().normalizeEmail(), // Sanitiser et valider l'email inséré
-    body('password').trim(), // Supprimer les espaces blancs dans le mot de passe inséré
-    async (req, res, next) => {
-        try {
-            const errors = validationResult(req)
-            if(!errors.isEmpty()){
-                return res.status(400).json({ success: false, errors: errors.array() })
-            }
+// module.exports.registerCompany = [
+//     body('email').isEmail().normalizeEmail(), // Sanitiser et valider l'email inséré
+//     body('password').trim(), // Supprimer les espaces blancs dans le mot de passe inséré
+//     async (req, res, next) => {
+//         try {
+//             const errors = validationResult(req)
+//             if(!errors.isEmpty()){
+//                 return res.status(400).json({ success: false, errors: errors.array() })
+//             }
         
-            const { email, password } = req.body;
+//             const { email, password } = req.body;
         
-            if (!email || !password) {
-                return res.json({ success: false, msg: `Veuillez renseigner tous les champs.` });
-            }
+//             if (!email || !password) {
+//                 return res.json({ success: false, msg: `Veuillez renseigner tous les champs.` });
+//             }
         
-            const check_user_student = await userStudents.findOne({email})
-            const check_user_company = await userCompanies.findOne({email})
+//             const check_user_student = await userStudents.findOne({email})
+//             const check_user_company = await userCompanies.findOne({email})
         
-            if (check_user_student || check_user_company){
-                return res.json({ success: false, msg: `L'adresse email ${email} est déjà associée à un compte.` });
-            }
+//             if (check_user_student || check_user_company){
+//                 return res.json({ success: false, msg: `L'adresse email ${email} est déjà associée à un compte.` });
+//             }
         
-            const hash_password = await hashPassword(password, 10);
+//             const hash_password = await hashPassword(password, 10);
         
-            const user = await userCompanies.create({
-                ...req.body,
-                password: hash_password,
-            });
+//             const user = await userCompanies.create({
+//                 ...req.body,
+//                 password: hash_password,
+//             });
         
-            return res.json({ success: true, data: user });
-        } catch (error) {
-            console.log(error)
-            return res.json({ success: false, msg: `Une erreur s'est produite lors de la création du compte` });
-        }
-    }
-]
+//             return res.json({ success: true, data: user });
+//         } catch (error) {
+//             console.log(error)
+//             return res.json({ success: false, msg: `Une erreur s'est produite lors de la création du compte` });
+//         }
+//     }
+// ]
 
 module.exports.forgotPassword = async (req, res, next) => {
     try {
@@ -200,13 +200,14 @@ module.exports.resetPassword = async (req, res, next) => {
 const checkUser = async (email) => {
       try {  
         const checkUserStudent = await userStudents.findOne({email})
-        const checkUserCompany = await userCompanies.findOne({email})
+        // const checkUserCompany = await userCompanies.findOne({email})
 
         if (checkUserStudent) {
             return checkUserStudent;
-        } else if (checkUserCompany) {
-            return checkUserCompany;
-        }
+        } 
+        // else if (checkUserCompany) {
+        //     return checkUserCompany;
+        // }
         return null
 
     } catch (error) {
@@ -277,19 +278,20 @@ const sendResetEmail = async (email, resetLink) => {
 const addToken = async (email, resetToken) => {
     try {
         const checkUserStudent = await userStudents.findOne({email})
-        const checkUserCompany = await userCompanies.findOne({email})
+        // const checkUserCompany = await userCompanies.findOne({email})
 
         if (checkUserStudent) {
             const newToken = await token.create({
                 token: resetToken,
                 user_student: checkUserStudent._id
             })
-        } else if (checkUserCompany) {
-            const newToken = await token.create({
-                token: resetToken,
-                user_company: checkUserCompany._id
-            })
-        }
+        } 
+        // else if (checkUserCompany) {
+        //     const newToken = await token.create({
+        //         token: resetToken,
+        //         user_company: checkUserCompany._id
+        //     })
+        // }
 
     } catch (error) {
         console.log(error)
@@ -303,9 +305,9 @@ const updatePassword = async (findToken, hash_password) => {
         const studentUpdate = { password: hash_password }
         await userStudents.findOneAndUpdate(studentQuery, studentUpdate, { runValidators: true})
 
-        const companyQuery = { _id: findToken.user_company }
-        const companyUpdate = { password: hash_password }
-        await userCompanies.findOneAndUpdate(companyQuery, companyUpdate, { runValidators: true})
+        // const companyQuery = { _id: findToken.user_company }
+        // const companyUpdate = { password: hash_password }
+        // await userCompanies.findOneAndUpdate(companyQuery, companyUpdate, { runValidators: true})
         
         // if (findToken.user_student !== null) {
         //     userStudents.findByIdAndUpdate(
