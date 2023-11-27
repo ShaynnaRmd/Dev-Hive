@@ -11,7 +11,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/login", authController.login)
-router.post("/registerStudent", authController.registerStudent)
+router.get("/registerStudent", authController.registerStudent)
 router.post("/forgotPassword", authController.forgotPassword)
 router.post("/resetPassword/:token", authController.resetPassword)
 // router.post("/logout/:id", authController.logout)
