@@ -12,15 +12,12 @@ router.get("/", function (req, res, next) {
 
 router.post("/login", authController.login)
 router.post("/registerStudent", authController.registerStudent)
-// router.post("/registerCompany", authController.registerCompany)
 router.post("/forgotPassword", authController.forgotPassword)
 router.post("/resetPassword/:token", authController.resetPassword)
 // router.post("/logout/:id", authController.logout)
 
 router.post("/displayProfileStudent/:id", profileController.displayProfileStudent)
-// router.post("/displayProfileCompany/:id", profileController.displayProfileCompany)
 router.post("/updateProfileStudent/:id", profileController.updateProfileStudent)
-// router.post("/updateProfileCompany/:id", profileController.updateProfileCompany)
 
 // router.get("/resetPassword/:token", authController.resetPassword)
 
