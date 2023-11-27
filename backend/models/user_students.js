@@ -2,8 +2,17 @@ const mongoose = require('mongoose')
 
 // Création de la collection stockant les utilisateurs sous le statut d'étudiant
 const user_studentsSchema = new mongoose.Schema({
-  email: String,
-  password: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true
+    },
+  password: {
+    type: String,
+    required: true,
+    },
+  // reset_token: String,
+
   profile: {
     description: String,
     mentoring: Boolean,
