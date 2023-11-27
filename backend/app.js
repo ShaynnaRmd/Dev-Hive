@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 const { connectDB } = require('./config/database');
+const cors = require('cors')
+// const logger = require('morgan');
 // var createError = require('http-errors');
 
 connectDB()
@@ -10,7 +11,13 @@ connectDB()
 const app = express();
 
 // Fournit une visibilité sur les requêtes entrantes dans la console
-app.use(logger('dev'));
+// app.use(logger('dev'));
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    // ... d'autres en-têtes CORS si nécessaire
+    next();
+  });
 
 // Facilitent le traitement des données utilisateur dans les routes en les mettant à disposition via req.body
 app.use(express.json());
