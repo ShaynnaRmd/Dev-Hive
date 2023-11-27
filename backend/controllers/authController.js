@@ -34,6 +34,7 @@ module.exports.login = async (req, res, next) => {
         // Renvoie les données de l'utilisateur si les mdp correspondent ou msg d'erreur si ne correspondent pas
         if (check_password){
             let token = generateJWT(user._id)
+            // Stocker le tocken dans la bdd
             return res.json({ success: true, data: user, token })
         } else {
             return res.json({ success: false, msg: `L'adresse email ou le mot de passe est invalide, veuillez réessayer.` })
@@ -164,7 +165,6 @@ const checkUser = async (email) => {
         if (checkUserStudent) {
             return checkUserStudent;
         } 
-
         return null
 
     } catch (error) {

@@ -14,60 +14,15 @@ const user_studentsSchema = new mongoose.Schema({
   // reset_token: String,
 
   profile: {
+    firstname: String,
+    lastname: String,
     description: String,
-    mentoring: Boolean,
-    personnal_information: {
-      firstname: String,
-      lastname: String,
-      birthdate: Date,
-      country: String,
-      city: String,
-      profile_picture: String
-    },
-
-    contact: {
-      email: String,
-      phone_number: String,
-      linkedin: String,
-      github: String
-    },
-
-    professionnal_information: {
-      wanted_job: String,
-      cv: String,
-      certification: [{title: String}],
-      stack: [{
-        name: String,
-        level: String,
-        description: String
-      }],
-
-      school: {
-        name: String,
-        country: String,
-        city: String
-      },
-
-      education: [{
-        name: String,
-        school: String,
-        beginning_date: Date,
-        ending_date: Date
-      }]
-    },
-
-    following_page: {
-      students: [{name: String}],
-      companies: [{name: String}]
-    },
-
-    mentoring_reservation: [{
-      title: String,
-      mentor_id: String,
-      date: Date,
-      duration: Number,
-      goals: String,
-      status: Buffer
+    profile_picture: String,
+    stack: Array,
+    quizz: [{
+      stack: String,
+      score: Number,
+      description: String
     }]
   }
 });
