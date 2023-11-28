@@ -109,7 +109,10 @@ module.exports.forgotPassword = async (req, res, next) => {
             return res.json({ success: false, msg: `L'adresse email ${email} n'est asociée à aucun compte.` })
         }
 
-        const resetToken = jwt.sign({ userId:user._id }, JWT_KEY, { expiresIn: '1h' }) // On génère un token temporaire
+        const alphanumericToken = generateAlphanumericToken()
+        const resetToken = jwt.sign({ userId:user._id }, alphanumericToken, { expiresIn: '1h' }) // On génère un token temporaire
+
+        // const resetToken = jwt.sign({ userId:user._id }, JWT_KEY, { expiresIn: '1h' }) // On génère un token temporaire
 
         await addToken(email, resetToken) // On stocke le token dans la bdd
 
@@ -224,7 +227,7 @@ const sendResetEmail = async (email, resetLink) => {
         from: process.env.EMAIL_USERNAME,
         to: email,
         subject: 'Demande de réinitialisation de mot de passe',
-        html: `Vous avez fait une demande de réinitialisation de mot de passe, veuillez cliquer sur le lien suivant afin de modifier votre mot de passe : <a href="${resetLink}">Modifier mon mot de passe</a> `
+        html: `Vous avez fait une demande de réinitialisation de mot de passe, veuillez cliquer sur le lien suivant afin de modifier votre mot de passe : <a href="${resetLink}">${resetLink}</a> `
     }
 
     transporter.sendMail(emailOptions, (error, info) => {
@@ -234,6 +237,18 @@ const sendResetEmail = async (email, resetLink) => {
             console.log('Email sent:', info.response);
         }
     })
+}
+
+function generateAlphanumericToken(length = 32) {
+    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let token = '';
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        token += characters.charAt(randomIndex);
+    }
+
+    return token;
 }
 
 // Fonction pour ajouter un token dans la bdd pour la réinitialisation du mdp
