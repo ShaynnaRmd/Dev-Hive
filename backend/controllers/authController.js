@@ -1,11 +1,10 @@
-const userStudents = require("../models/user_students")
+const user = require("../models/user")
 const token = require("../models/token")
 
 const bcrypt = require("bcryptjs"); // Pour le hashage des mots de passe
 const { body, validationResult } = require("express-validator") // Pour validation et désinfection des inputs dans le body
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
-// const crypto = require('crypto')
 
 require('dotenv').config()
 const JWT_KEY = process.env.JWT_KEY
@@ -29,19 +28,19 @@ module.exports.login = async (req, res, next) => {
         }
 
         // Vérification du mdp fourni en le comparant avec celui hashé dans la bdd avec la fonction "comparePassword"
-        const check_password = await comparePassword(password, user.password);
+        const checkpassword = await comparePassword(password, user.password);
         
         // Renvoie les données de l'utilisateur si les mdp correspondent ou msg d'erreur si ne correspondent pas
-        if (check_password){
+        if (checkpassword){
             let token = generateJWT(user._id)
-            // Stocker le tocken dans la bdd
             return res.json({ success: true, data: user, token })
         } else {
             return res.json({ success: false, msg: `L'adresse email ou le mot de passe est invalide, veuillez réessayer.` })
         }
+
     } catch(error) {
         console.log(error)
-        return res.status(500).json({ success: false, msg: 'Erreur interne du serveur.' })
+        return res.status(500).json({ success: false, msg: error })
     }
 }
 
@@ -54,9 +53,10 @@ module.exports.login = async (req, res, next) => {
 //     }
 // }
 
-module.exports.registerStudent = [
+module.exports.register = [
     body('email').isEmail().normalizeEmail(), // Sanitiser et valider l'email inséré
     body('password').trim(), // Supprimer les espaces blancs dans le mot de passe inséré
+    body('confirmPassword').trim(),
     async (req, res, next) => {
         try {
             const errors = validationResult(req)
@@ -64,29 +64,33 @@ module.exports.registerStudent = [
                 return res.status(400).json({ success: false, errors: errors.array() })
             }
 
-            const { email, password } = req.body || {};
+            const { email, password, confirmPassword } = req.body || {}
             
-            if (!email || !password) {
-                return res.json({ success: false, msg: `Veuillez renseigner tous les champs.` });
+            if (!email || !password || !confirmPassword) {
+                return res.json({ success: false, msg: `Veuillez renseigner tous les champs.` })
             }
         
-            const check_user_student = await userStudents.findOne({email})
+            const checkedUser = await checkUser(email)
         
-            if (check_user_student){
-                return res.json({ success: false, msg: `L'adresse email ${email} est déjà associée à un compte.` });
+            if (checkedUser){
+                return res.json({ success: false, msg: `L'adresse email ${email} est déjà associée à un compte.` })
             }
         
-            const hash_password = await hashPassword(password, 10);
+            if (password !== confirmPassword) {
+                return res.json({ success: false, msg: "Les mots de passe ne correspondent pas." })
+            }
+
+            const hashedPassword = await hashPassword(password, 10)
         
-            const user = await userStudents.create({ 
+            const newUser = await user.create({ 
                 ...req.body,
-                password: hash_password,
-            });
-        
-            return res.json({ success: true, data: user });
+                password: hashedPassword,
+            })
+            return res.json({ success: true, data: newUser })
+
         } catch (error) {
             console.log(error)
-            return res.json({ success: false, msg: `Une erreur s'est produite lors de la création du compte` });
+            return res.json({ success: false, msg: error })
         }
     }
 ]
@@ -100,7 +104,6 @@ module.exports.forgotPassword = async (req, res, next) => {
         }
 
         let user = await checkUser(email)
-        console.log(user)
 
         if (!user) {
             return res.json({ success: false, msg: `L'adresse email ${email} n'est asociée à aucun compte.` })
@@ -110,60 +113,60 @@ module.exports.forgotPassword = async (req, res, next) => {
 
         await addToken(email, resetToken) // On stocke le token dans la bdd
 
-        // user.reset_token = resetToken
-        // await user.save()
-
         // On envoie le mail contenant le lien de réinitialisation
-        const resetLink = `http://localhost:3000/resetPassword/${resetToken}`
+        const resetLink = `http://localhost:3000/resetPassword/${resetToken}` // METTRE A JOUR AVEC LIEN RENDER !!!!!! ---------------------------------------------
         await sendResetEmail(user.email, resetLink)
 
         return res.json({ success: true, msg: "Un email de réinitialisation du mot de passe a été envoyé à votre adresse email." })
 
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ success: false, msg: 'Erreur du server' })
+        return res.status(500).json({ success: false, msg: error })
     }
 }
 
-module.exports.resetPassword = async (req, res, next) => {
-    try {
-        const { password, confirmPassword } = req.body
+module.exports.resetPassword = [
+    body('password').trim(), // Supprimer les espaces blancs dans le mot de passe
+    body('confirmPassword').trim(),
+    async (req, res, next) => {
+        try {
+            const { password, confirmPassword } = req.body
 
-        if (!password || !confirmPassword) {
-            return res.json({ success: false, msg: "Veuillez renseigner tous les champs." })
+            if (!password || !confirmPassword) {
+                return res.json({ success: false, msg: "Veuillez renseigner tous les champs." })
+            }
+
+            if (password !== confirmPassword) {
+                return res.json({ succes: false, msg: "Les mots de passe ne correspondent pas." })
+            }
+
+            const hashedPassword = await hashPassword(password, 10);
+            const findToken = await token.findOne({ token: req.params.token })
+
+            if (!findToken) {
+                return res.json({ success: false, msg: "Token non valide." });
+            }
+
+            await updatePassword(findToken, hashedPassword)
+
+            return res.json({ success: true, msg: "Mot de passe réinitialisé avec succés." })
+
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({ success: false, msg: error })
         }
-
-        if (password !== confirmPassword) {
-            return res.json({ succes: false, msg: "Les mots de passe ne correspondent pas." })
-        }
-
-        const hash_password = await hashPassword(password, 10);
-        const findToken = await token.findOne({ token: req.params.token })
-
-        if (!findToken) {
-            return res.json({ success: false, msg: "Token non valide." });
-        }
-
-        await updatePassword(findToken, hash_password)
-
-        return res.json({ success: true, msg: "Mot de passe réinitialisé avec succés." })
-
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({ success: false, msg: 'Erreur du server' })
     }
-}
-
+]
 
 // --------------------FONCTIONS--------------------
 
 // Fonction pour vérifier si l'email fourni est dans la bdd
 const checkUser = async (email) => {
       try {  
-        const checkUserStudent = await userStudents.findOne({email})
+        const checkUser = await user.findOne({email})
 
-        if (checkUserStudent) {
-            return checkUserStudent;
+        if (checkUser) {
+            return checkUser
         } 
         return null
 
@@ -174,16 +177,17 @@ const checkUser = async (email) => {
 }
 
 // Fonction pour comparer les mots de passe 
-async function comparePassword(password, hash_password) {
+async function comparePassword(password, hashedPassword) {
     try {
-        const match = await bcrypt.compare(password, hash_password);
-        return match;
+        const match = await bcrypt.compare(password, hashedPassword)
+        return match
+
     } catch (error) {
-        throw error; 
+        throw error
     }
 }
 
-// Fonction de génération de jwt token
+// Fonction de génération de token
 const generateJWT = (userId) => {
     return jwt.sign({ userId }, JWT_KEY, {expiresIn: '1h' })
 }
@@ -191,10 +195,11 @@ const generateJWT = (userId) => {
 // Fonction pour hasher le password
 const hashPassword = async (password, saltRounds) => {
     try {
-      const salt = await bcrypt.genSalt(saltRounds);
-      return await bcrypt.hash(password, salt);
+      const salt = await bcrypt.genSalt(saltRounds)
+      return await bcrypt.hash(password, salt)
+
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
     return null;
   };
@@ -219,7 +224,7 @@ const sendResetEmail = async (email, resetLink) => {
         from: process.env.EMAIL_USERNAME,
         to: email,
         subject: 'Demande de réinitialisation de mot de passe',
-        html: `Vous avez fait une demande de réinitialisation de mot de passe, veuillez cliquer sur le lien suivant afin de modifier votre mot de passe : <a href="${resetLink}">${resetLink}</a>" `
+        html: `Vous avez fait une demande de réinitialisation de mot de passe, veuillez cliquer sur le lien suivant afin de modifier votre mot de passe : <a href="${resetLink}">Modifier mon mot de passe</a> `
     }
 
     transporter.sendMail(emailOptions, (error, info) => {
@@ -234,12 +239,12 @@ const sendResetEmail = async (email, resetLink) => {
 // Fonction pour ajouter un token dans la bdd pour la réinitialisation du mdp
 const addToken = async (email, resetToken) => {
     try {
-        const checkUserStudent = await userStudents.findOne({email})
+        const user = await checkUser(email)
 
-        if (checkUserStudent) {
+        if (user) {
             const newToken = await token.create({
                 token: resetToken,
-                user_student: checkUserStudent._id
+                user: user._id
             })
         } 
 
@@ -251,9 +256,10 @@ const addToken = async (email, resetToken) => {
 // Fonction pour modifier le mdp dans la bdd selon s'il s'agit d'un étudiant ou d'une entreprise
 const updatePassword = async (findToken, hash_password) => {
     try {
-        const studentQuery = { _id: findToken.user_student }
-        const studentUpdate = { password: hash_password }
-        await userStudents.findOneAndUpdate(studentQuery, studentUpdate, { runValidators: true})
+        const query = { _id: findToken.user }
+        const update = { password: hash_password }
+
+        await user.findOneAndUpdate(query, update, { runValidators: true })
         
     } catch (error) {
         console.log(error)

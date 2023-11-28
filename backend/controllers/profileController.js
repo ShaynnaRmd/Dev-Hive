@@ -1,75 +1,96 @@
-const userStudents = require("../models/user_students")
+const user = require("../models/user")
 const { body, validationResult } = require("express-validator") // Pour validation et désinfection des inputs dans le body
+const upload = require('../middlewares/storageConfig')
+const multer = require('multer')
 
 // --------------------MODULES--------------------
 
-module.exports.displayProfileStudent = async (req, res, next) => {
+module.exports.displayProfile = async (req, res, next) => {
     try {
-        const profile = await userStudents.findById(req.params.id)
+        const profile = await user.findById(req.params.id)
         console.log(profile)
+
+        if (!profile) {
+            return res.status(404).json({ success: false, msg: "Aucun profil n'a été trouvé." })
+        }
+
         return res.status(200).json({ success: true, data: profile })
+
     } catch (error) {
         console.log(error)
     }
 }
 
-module.exports.updateProfileStudent = async (req, res, next) => {
+module.exports.uploadProfilePicture = async (req, res, next) => {
     try {
-        // const updatedProfile = await userStudents.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }) // new: true permet de renvoyer la nouvelle entrée
-        // return res.status(200).json({ success: true, data: updatedProfile })
-        // const { id } = req.params
-        
-        const { 
-            description, mentoring,
-            firstname, lastname, birthdate, country, city, profile_picture,
-            email, phone_number, linkedin, github,
-            wanted_job, cv, stack_name, level, stack_description,
-            school_name, school_country, school_city,
-            education_name, education_school, beginning_date, ending_date
-         } = req.body || {}
+        upload.single('profilePicture')(req, res, async function (err) {
+            // Une erreur liée à Multer s'est produite lors de l'envoi du fichier
+           if (err instanceof multer.MulterError) {
+               return res.status(500).json({ success: false, msg: 'Multer error' })
 
-        const updatedProfile = await userStudents.findByIdAndUpdate(
-            req.params.id,
-            { $set: { 
-                "profile.description": description,
-                "profile.mentoring": mentoring,
+           // Une autre erreur s'est produite
+           } else if (err) {
+               return res.status(500).json({ success: false, msg: 'Unexpected error' })
+           }
 
-                "profile.personnal_information.firstname": firstname,
-                "profile.personnal_information.lastname": lastname,
-                "profile.personnal_information.birthdate": birthdate,
-                "profile.personnal_information.country": country,
-                "profile.personnal_information.city": city,
-                "profile.personnal_information.profile_picture": profile_picture,
+           const profilePicture = req.file // req.files permet d'accéder au fichier téléchargé
+           
+           const updatedProfile = await user.findByIdAndUpdate(
+               req.params.id,
+               { $set: { 'profile.profilePicture' : profilePicture.filename } },
+               { new: true, runValidators: true }
+           );
 
-                "profile.contact.email": email,
-                "profile.contact.phone_number": phone_number,
-                "profile.contact.linkedin": linkedin,
-                "profile.contact.github": github,
+           return res.status(200).json({ success: true, data: updatedProfile })
+       })
 
-                "profile.professionnal_information.wanted_job": wanted_job,
-                "profile.professionnal_information.cv": cv,
-
-                "profile.professionnal_information.stack.stack_name": stack_name,
-                "profile.professionnal_information.stack.level": level,
-                "profile.professionnal_information.stack.description": stack_description,
-
-                "profile.professionnal_information.school.name": school_name,
-                "profile.professionnal_information.school.country": school_country,
-                "profile.professionnal_information.school.city": school_city,
-                
-                "profile.professionnal_information.education.name": education_name,
-                "profile.professionnal_information.school.education.school": education_school,
-                "profile.professionnal_information.school.education.beginning_date": beginning_date,
-                "profile.professionnal_information.school.education.ending_date": ending_date,
-
-            }}, { new: true, runValidators: true }
-        )
-
-        await updatedProfile.save()
-        return res.status(200).json({ succcess: true, date: updatedProfile })
-        
     } catch (error) {
         console.log(error)
         return res.json({ success: false, msg: error })
     }
 }
+
+module.exports.updateProfile = async (req, res, next) => {
+    try {
+        // const updatedProfile = await user.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }) // new: true permet de renvoyer la nouvelle entrée
+        // return res.status(200).json({ success: true, data: updatedProfile })
+
+        const { firstname, lastname, description, stack } = req.body
+        const updateFields = {}
+
+        if (firstname) { updateFields['profile.firstname'] = firstname }
+        if (lastname) { updateFields['profile.lastname'] = lastname }
+        if (description) { updateFields['profile.description'] = description }
+        if (stack) { updateFields['profile.stack'] = stack }
+            
+        const updatedProfile = await user.findByIdAndUpdate(
+            req.params.id,
+            { $set: updateFields },
+            { new: true, runValidators: true }
+        )
+
+        return res.status(200).json({ success: true, data: updatedProfile })
+
+    } catch (error) {
+        console.log(error)
+        return res.json({ success: false, msg: error })
+    }
+}
+
+// const { 
+//     firstname, lastname, description, profilePicture, stack
+//  } = req.body || {}
+
+// const updatedProfile = await user.findByIdAndUpdate(
+//     req.params.id,
+//     { $set: { 
+//         "profile.firstname": firstname,
+//         "profile.lastname": lastname,
+//         "profile.description": description,
+//         "profile.profilePicture": profilePicture,
+//         "profile.stack": stack
+//     }}, { new: true, runValidators: true }
+// )
+// await updatedProfile.save()
+
+// return res.status(200).json({ succcess: true, date: updatedProfile })
