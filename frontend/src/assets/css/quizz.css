@@ -1,0 +1,160 @@
+.quiz-container {
+    width: 90%; /* Définit la largeur du conteneur à 90% de la largeur de l'écran */
+    max-width: 1200px; /* Ajoute une largeur maximale pour éviter que le conteneur ne devienne trop large sur les grands écrans */
+    margin: 20px auto; /* Centre le conteneur avec une marge automatique */
+    padding: 20px;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    background-color: var(--white);
+    color: var(--black);
+    border: solid 2px rgba(36, 6, 61, 0.137);
+    overflow: hidden;
+  }
+  
+  .question {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: var(--violet);
+    position: relative;
+    z-index: 2;
+   
+  }
+  @keyframes questionappear {
+    0% { transform: translateY(-10px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  
+  .answers button {
+    padding: 10px 25px;
+    margin-right: 15px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--violet);
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+    box-shadow:inset 0 0px 0px rgb(19, 3, 34);
+    animation: questionappear 0.2s ease-out forwards ;
+    
+  }
+  .answers{
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    align-items:flex-end;
+    justify-content:flex-start;
+    gap: 1em;
+  
+  }
+  .answers button .p{
+    position:relative;
+    
+    margin:0;
+  }
+  .continuerquizz{
+    position:absolute;
+    right: 0;
+    bottom: 5%;
+    margin:0;
+    padding: 5px 25px;
+    margin-right: 15px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--violet);
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.3s, box-shadow 0.3s;
+    z-index: 2;
+  
+  }
+  
+  
+  
+  
+  .answer-button.correct.animate-correct {
+    animation: pulse 0.5s;
+    --violet: #d8ffcd
+  }
+  
+  
+  .answer-button.incorrect {
+    background-color: var(--pink);
+    --violet:var(--pink);
+    animation: shake 0.5s;
+    transition: all 0.2s;
+  }
+  
+  .progress-bar {
+    height: 6px;
+    background-color: var(--violet);
+    margin-bottom: 25px;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 5;
+   left: 0;
+   bottom: 10%;
+    transition: all 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  }
+  
+  .progress-info {
+    text-align: left;
+    font-weight: lighter;
+    margin-top: 2em;
+    color: var(--violet);
+    position: relative;
+    z-index: 2;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1);
+    background: #d8ffcd; color: #195723;
+    
+  }
+    50% { transform: scale(2);
+    background: #d8ffcd; color: #195723;}
+    100% { transform: scale(3);
+      opacity: 0;
+    background: #d8ffcd; color: #195723; }
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(-10px); --violet: var(--pink) }
+    25% { transform: translateX(10px);  --violet: var(--pink)}
+    50% { transform: translateX(-10px);  --violet: var(--pink)}
+    75% { transform: translateX(10px); --violet: var(--pink) }
+    100% { transform: translateX(0);  --violet: var(--pink)}
+  }
+  
+  /* Blob animations */
+  
+  
+  /* Appliquer cet effet sur des éléments spécifiques, par exemple, les boutons de réponse */
+  
+  
+  
+  @media (hover: hover) and  (min-width: 1024px)  {
+    .answers button:hover {
+      transform: translateY(-2px);
+      color: #a679ff;
+      box-shadow:inset 0 -50px 0px rgb(19, 3, 34);
+      
+    }
+    .answers button.answer-button.correct:hover {
+      box-shadow: inset 0 0px 0px #d8ffcd;
+      }
+     
+  }
+  .quiz-container{
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

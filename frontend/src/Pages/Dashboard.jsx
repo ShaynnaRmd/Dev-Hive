@@ -2,8 +2,11 @@ import React from "react";
 import styles from "../components/Dashboard/Dashboard.module.css";
 import defaultBanner from "../assets/images/default_banner.png";
 import defaultProfilePicture from "../assets/images/anonymous.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className={styles.page}>
@@ -92,7 +95,9 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className={styles.addXp}>
-                <button>+ Ajouter une expérience</button>
+                <button onClick={() => navigate("/quizz")}>
+                  + Ajouter une expérience
+                </button>
               </div>
             </div>
           </div>

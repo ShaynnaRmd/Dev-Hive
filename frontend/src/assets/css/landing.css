@@ -1,13 +1,17 @@
 body{
     --white: #f8f8f8;
-    --violet: #8200E9;
+    --violet: #824BED;
     --blue: #1170FF;
     --black: #141414;
+    --pink:#FF4E4E;
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
     position: relative;
+    clear: both;
+    background-color: var(--white);
+    
 }
+
 .blob1{
     position:absolute;
     right: 0em;
@@ -24,14 +28,18 @@ body{
     width: 30%;
     height: 100%;
     max-height: 50px;
-    max-width: 400px;
-    background:linear-gradient(130deg,var(--violet), var(--blue));
+    max-width: 200px;
+    background:var(--violet);
+}
+#student:hover{
+    background: #e1d2fd;
+    color: #1a083f;
 }
 #compagny{
     display: flex;
     justify-content: center;
     width: 30%;
-    max-width: 400px;
+    max-width: 200px;
     align-items: center;
     height: 100%;
     max-height: 50px;
@@ -42,40 +50,40 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 70%;
+
   
 }
 .containerlanding1{
     width: 100%;
-    height: 80%;
     padding-bottom: 5em;
-    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+   
+    
 }
 .containerOfLandingPage{
     color: var(--black);
     width: 100%;
-    height: 50%;
     position:relative;
     padding-top: 7em;
-    padding-left:6em;
-
+    padding-left:9em;
+   gap:4em;
     display: flex;
     flex-direction: column;
     text-align: left;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     z-index:2;
     max-width: 750px;
 }
-.containerlanding2{
-    position: relative;
- 
-    width: 100%;
-    height: 100%;
 
+.titrelanding{
+    font-size:2.5em;
 }
 .titrelanding span{
-    background: -webkit-linear-gradient(130deg,var(--violet), var(--blue));
+    background: var(--violet);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -85,17 +93,17 @@ body{
     right: 0;
     height: 50px;
     background: var(--black);
-    transform: translateY(-60px);
+    transform: translateY(-50px);
     z-index: 1;
 }
 .slach{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 101%;
+    width: 100%;
     position: relative;
     height: 50px;
-    background: var(--violet);
+    background:linear-gradient(130deg,var(--violet), 10%, var(--blue), 50%,var(--pink));
     transform: rotate(-2deg);
     z-index: 4;
 
@@ -108,34 +116,166 @@ body{
     left: 0;
     height: 50px;
     background: var(--white);
-    transform:  translateY(-60px);
+    transform:  translateY(-62px);
     z-index: 2;
 
 }
 .cardcontenaire{
     display: flex;
-    position: absolute;
-    top:50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: space-around;
-    transform: translate(-50%,-50%);
+    position: relative;
+    align-items:center;
+    justify-content:space-between;
+    padding:4em;
+    padding-left:9em;
+    padding-right:9em
     
 }
 
 
 
-.card_info{
-    width:500px;
-    height: 50%;
-    border-radius: 0.5em;
-    background: #14141479;
-    border-style: solid;
-    border-color:#8200E9;
 
+.card_info{
+    width:25%;
+    height:264px;
+    border-radius: 0.5em;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
     border-radius: 1em;
-  
-    border-image: linear-gradient(130deg,var(--violet), var(--blue)) outset 1;
+    position: relative;
+    display:flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1em;
+    padding:2em;
+    text-align:left;
+    
+ 
+}
+
+.card_info::after{
+    content: '';
+    position: absolute;
+    font-weight: bold;
+    font-size: 2em;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.3em;
+    background-color: #000000;
+    top: -5%;
+    left: 5%;
+    color:#ffffff;
+   
+    
+}
+.card_info:first-of-type::after{
+    content: '1';
+}
+.cardcontenaire .card_info:nth-of-type(2)::after{
+    content: '2';
+}
+.cardcontenaire .card_info:nth-of-type(3)::after{
+    content: '3';
+}
+.card_info:first-of-type{
+    background:rgba(215, 180, 0, 0.35);
+    color: rgba(73, 53, 8, 0.884) ;
+    
+}
+.card_info:nth-of-type(2){
+    background:rgba(15, 134, 20, 0.16);
+    color: rgba(14, 56, 4, 0.884) ;
+}
+.card_info:nth-of-type(3){
+    background:rgba(102, 0, 233, 0.17);
+    color: rgba(38, 5, 80, 0.884) ;
+    
+}
+.blob3{
+    position:absolute;
+
+    top: 15em;
+}
+
+@media screen and (max-width:1200px){
+    .slach{
+        display:none
+    }
+    .blackslachinvisible{
+        display:none
+    }
+    .whiteslachinvisible{
+        display:none
+    }
+    .containerOfLandingPage{
+        width:auto;
+        height:auto;
+        padding-left:1em;
+        padding-right:1em;
+     
+       
+        
+    }
+    h1{
+        font-size:2em !important
+    }
+ 
+ 
+    .blob3{
+        display:none;
+    }
+    .cardcontenaire{
+        gap:1em;
+        padding: 1em;
+        margin-top: 2em;
+       
+        
+    }
+
+    .card_info{
+        width: 80%;
+        gap: 0.5em;
+        font-size: 16px;
+    }
+    .card_info h2{
+        font-size: 1em;
+    
+    }
+}
+@media screen and (max-width:1050px){
+    .card_info{
+        width: 80%;
+        font-size: 13px;
+    }
+}
+@media screen and (max-width:1300px){
+    .card_info{
+        font-size: 13px;
+    }
+}
+@media screen and (max-width:710px){
+    .card_info{
+        width: 80%;
+        font-size: 12px;
+    }
+}
+@media screen and (max-width:700px){
+    .cardcontenaire{
+        flex-wrap: wrap;
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+    .card_info{
+        width: 100%;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width:410px){
+    .card_info{
+        width: 80%;
+        font-size: 14px;
+    }
 }

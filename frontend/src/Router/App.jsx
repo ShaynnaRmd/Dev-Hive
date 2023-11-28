@@ -7,6 +7,8 @@ import { Register } from "../Pages/Register";
 import { Login } from "../Pages/Login";
 import { Profile } from "../Pages/Profile";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import QuizComponent from "../components/quizz";
+import "../assets/css/quizz.css";
 import Dashboard from "../Pages/Dashboard";
 
 function App() {
@@ -19,6 +21,10 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/profil" element={<Profile />}></Route>
+            <Route
+              path="/quiz"
+              element={<QuizComponent language="react" />}
+            ></Route>
             <Route path="/dashboard" element={<Dashboard />}></Route>
             <Route></Route>
           </Routes>
