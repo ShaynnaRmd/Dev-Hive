@@ -1,9 +1,11 @@
 import { Input } from "./Input";
 import { useState } from "react";
+import styles from "../components/Form.module.css";
+import { useNavigate } from "react-router-dom";
 
-export function Form({ fields, onSubmit, submitValue }) {
+export function Form({ fields, onSubmit, submitValue, status }) {
   const [inputValues, setInputValues] = useState([]);
-
+  const navigate = useNavigate();
   const handleInputChange = (index, value) => {
     const newValues = [...inputValues];
     newValues[index] = value;
@@ -25,10 +27,24 @@ export function Form({ fields, onSubmit, submitValue }) {
             label={el.label}
             type={el.type}
             value={el.value}
+            placeholder={el.placeholder}
             onChange={(value) => handleInputChange(index, value)}
           />
         ))}
-        <input type="submit" value={submitValue} />
+        <div className={styles.links}>
+          <p>Déjà un compte ?</p>
+          {status == "registerStudent" && (
+            <p onClick={() => navigate("/register/compagny")}>
+              S'inscrire en tant qu'entreprise
+            </p>
+          )}
+          {status == "registerCompagny" && (
+            <p onClick={() => navigate("/register/student")}>
+              S'inscrire en tant qu'étudiant
+            </p>
+          )}
+        </div>
+        <input type="submit" value={submitValue} className={styles.submit} />
       </form>
     </>
   );
