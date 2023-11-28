@@ -30,9 +30,14 @@ export function Login() {
       const response = await fetch(url, requestOptions);
       const result = await response.json();
       console.log(result);
+      console.log(result.data._id);
       if (result.success) {
-        localStorage.setItem("token", result.token);
-        navigate("/profil");
+        localStorage.setItem("id", result.data._id);
+        if (result.data.profile.stack.length != 0) {
+          navigate(`/dashboard`);
+        } else {
+          navigate(`/profil`);
+        }
       }
     } catch (error) {
       console.error("Erreur lors de la requête fetch:", error);

@@ -77,6 +77,7 @@ export function Register() {
   };
 
   const handleFormSubmit = (data) => {
+    console.log("something");
     if (isMailValid(data[0]) == false) {
       setEmailState(false);
       return;
@@ -101,6 +102,7 @@ export function Register() {
     const dataToSend = {
       email: data[0],
       password: data[1],
+      confirmPassword: data[2],
     };
     SendRegisterData(dataToSend);
   };

@@ -33,16 +33,9 @@ export function Form({ fields, onSubmit, submitValue, status }) {
         ))}
         <div className={styles.links}>
           <p onClick={() => navigate("/login")}>Déjà un compte ?</p>
-          {status == "registerStudent" && (
-            <p onClick={() => navigate("/register/compagny")}>
-              S'inscrire en tant qu'entreprise
-            </p>
-          )}
-          {status == "registerCompagny" && (
-            <p onClick={() => navigate("/register/student")}>
-              S'inscrire en tant qu'étudiant
-            </p>
-          )}
+          <p onClick={() => navigate("/sendresetpassword")}>
+            Mot de Passe oublié ?
+          </p>
         </div>
         <input
           type="submit"

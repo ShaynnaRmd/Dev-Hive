@@ -10,6 +10,8 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import QuizComponent from "../Pages/Quizz";
 import "../assets/css/quizz.css";
 import Dashboard from "../Pages/Dashboard";
+import ResetPassword from "../Pages/ResetPassword";
+import SendResetPassword from "../Pages/SendResetPassword";
 
 function App() {
   return (
@@ -22,7 +24,11 @@ function App() {
           <Route path="/profil" element={<Profile />}></Route>
           <Route path="/quiz/:stack" element={<QuizComponent />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route></Route>
+          <Route path="/resetPassword/:id" element={<ResetPassword />}></Route>
+          <Route
+            path="/sendresetpassword"
+            element={<SendResetPassword />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>

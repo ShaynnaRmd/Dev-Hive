@@ -15,7 +15,8 @@ export function Profile() {
   const [checkedStacks, setCheckedStacks] = useState({});
   const [banner, setBanner] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
-
+  const navigate = useNavigate();
+  const id = localStorage.getItem("id");
   const stacks = [
     "Python",
     "HTML",
@@ -38,8 +39,7 @@ export function Profile() {
     };
 
     try {
-      const url =
-        "https://prodev-ba4t.onrender.com/createProfile/65660326223447d80399ad3f";
+      const url = `https://prodev-ba4t.onrender.com/createProfile/${id}`;
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
