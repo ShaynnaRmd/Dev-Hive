@@ -47,12 +47,15 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 30%;
   background-color: #ffffff;
   z-index: 1;
 }
 
 .title {
   width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .title h2 {
@@ -98,6 +101,14 @@ form {
   align-items: center;
 }
 
+textarea {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+#description {
+  height: 100px;
+}
+
 .svgleft {
   position: absolute;
   left: 0;
@@ -111,4 +122,54 @@ form {
 .svgright {
   position: absolute;
   right: 0;
+}
+
+fieldset {
+  width: 100%;
+  height: 20%;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+fieldset legend {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.checkboxcontainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 5px;
+  width: 20%;
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.btn {
+  position: relative;
+}
+
+.btn button {
+  background-color: #824bed;
+}
+
+.confirm {
+  width: 100%;
+  height: 50px;
+  border-radius: 16px;
+  background-color: #824bed;
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
 }

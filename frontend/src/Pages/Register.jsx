@@ -57,7 +57,7 @@ export function Register() {
     };
 
     try {
-      const url = "https://prodev-ba4t.onrender.com/registerStudent";
+      const url = "https://prodev-ba4t.onrender.com/register";
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {

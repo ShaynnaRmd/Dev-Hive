@@ -95,9 +95,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className={styles.addXp}>
-                <button onClick={() => navigate("/quizz")}>
-                  + Ajouter une expérience
-                </button>
+                <button>+ Ajouter une expérience</button>
               </div>
             </div>
           </div>
