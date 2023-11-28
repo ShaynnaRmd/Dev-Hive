@@ -52,7 +52,7 @@ fields {
 }
 
 form {
-  row-gap: 2vh;
+  row-gap: 3vh;
 }
 #loginForm .btn-primary {
   width: 80%;
