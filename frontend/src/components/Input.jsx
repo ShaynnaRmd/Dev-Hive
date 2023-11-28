@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./Input.module.css";
+import React from "react";
 
 export function Input({ placeholder, type, label, onChange, value }) {
   const [inputValue, setInputValue] = useState("");

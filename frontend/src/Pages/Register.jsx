@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import React from "react";
 import { Form } from "../components/Form";
 import { isPasswordValid, isMailValid } from "../functions/checkPassword";
 import styles from "../assets/css/Register.module.css";
@@ -7,7 +8,6 @@ import blobtop from "../assets/svg/blobtop.svg";
 import blobmid from "../assets/svg/blobmid.svg";
 import blobdown from "../assets/svg/blobdown.svg";
 import blobtopy from "../assets/svg/blobtopyellow.svg";
-import blobmidy from "../assets/svg/blobmidyellow.svg";
 import blobdowny from "../assets/svg/blobdownyellow.svg";
 import yellowBook from "../assets/svg/yellowBook.svg";
 import yellowLogo from "../assets/svg/yellowlogo.svg";
@@ -18,7 +18,6 @@ import GoogleLogo from "../assets/svg/googlelogo.svg";
 import AppleLogo from "../assets/svg/applelogo.svg";
 
 export function Register() {
-  const { type } = useParams();
   const [inputValues, setInputValues] = useState([]);
   const [errorPassword, setErrorPassword] = useState(false);
 
@@ -32,7 +31,7 @@ export function Register() {
       type: "email",
       label: "Email",
       value: inputValues[0],
-      placeholder: "johndoe@gmail.com",
+      placeholder: "williamsdoe@gmail.com",
     },
     {
       type: "password",
@@ -47,6 +46,35 @@ export function Register() {
       placeholder: "******",
     },
   ];
+
+  const SendRegisterData = async (data) => {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    try {
+      const url = "https://prodev-ba4t.onrender.com/registerStudent";
+      const response = await fetch(url, requestOptions);
+
+      if (!response.ok) {
+        throw new Error(
+          `Échec de la requête avec le code d'état ${response.status}`
+        );
+      }
+
+      const responseServer = await response.json();
+      console.log("Requete réussie :", responseServer);
+      if (responseServer.success) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleFormSubmit = (data) => {
     if (isMailValid(data[0]) == false) {
@@ -69,26 +97,27 @@ export function Register() {
     } else {
       setPasswordState(true);
     }
-    console.log(data);
+
+    const dataToSend = {
+      email: data[0],
+      password: data[1],
+    };
+    SendRegisterData(dataToSend);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.blobtop}>
-        <img
-          src={type === "student" ? blobtop : blobtopy}
-          alt=""
-          style={{ fill: "#EADEA6" }}
-        />
+        <img src={blobtop} alt="" style={{ fill: "#EADEA6" }} />
       </div>
       <div className={styles.blobmid}>
-        <img src={type === "student" ? blobdown : blobdowny} alt="" />
+        <img src={blobmid} alt="" />
       </div>
       <div className={styles.blobdown}>
-        <img src={type === "student" ? blobdown : blobdowny} alt="" />
+        <img src={blobdown} alt="" />
       </div>
       <div className={styles.logo}>
-        <img src={type === "student" ? purpleLogo : yellowLogo} alt="" />
+        <img src={purpleLogo} alt="" />
       </div>
 
       <div className={styles.containerform}>
@@ -97,26 +126,16 @@ export function Register() {
             <div className={styles.topleft}>
               <h4>Inscrivez-vous</h4>
             </div>
-            <div
+            {/* <div
               className={styles.topright}
-              style={
-                type == "student"
-                  ? {
-                      backgroundColor: "rgba(5, 0, 233, 0.1)",
-                      color: "#8200E9",
-                    }
-                  : {
-                      backgroundColor: "#CEE1D9",
-                      color: "#28A708",
-                    }
-              }
+              style={{
+                backgroundColor: "rgba(5, 0, 233, 0.1)",
+                color: "#8200E9",
+              }}
             >
-              <img
-                src={type == "student" ? book : yellowBook}
-                alt="Book Icon"
-              />
-              <p>{type === "student" ? "Etudiant" : "Entreprise"}</p>
-            </div>
+              <img src={book} alt="Book Icon" />
+              <p>Etudiant</p>
+            </div> */}
           </div>
           <div className={styles.bottom}>
             <p>Vous completerez votre profile par la suite</p>
@@ -126,7 +145,6 @@ export function Register() {
           fields={formFields}
           onSubmit={handleFormSubmit}
           submitValue={"Inscription"}
-          status={type == "student" ? "registerStudent" : "registerCompagny"}
         />
         {!passwordState && (
           <p style={{ color: "red" }}>

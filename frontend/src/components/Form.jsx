@@ -2,6 +2,7 @@ import { Input } from "./Input";
 import { useState } from "react";
 import styles from "../components/Form.module.css";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 export function Form({ fields, onSubmit, submitValue, status }) {
   const [inputValues, setInputValues] = useState([]);
@@ -31,7 +32,7 @@ export function Form({ fields, onSubmit, submitValue, status }) {
           />
         ))}
         <div className={styles.links}>
-          <p>Déjà un compte ?</p>
+          <p onClick={() => navigate("/login")}>Déjà un compte ?</p>
           {status == "registerStudent" && (
             <p onClick={() => navigate("/register/compagny")}>
               S'inscrire en tant qu'entreprise

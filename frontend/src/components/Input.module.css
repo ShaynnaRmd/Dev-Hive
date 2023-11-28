@@ -5,7 +5,7 @@
   height: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 5px;
 }
 
 .label {
@@ -19,6 +19,7 @@
 
 .input {
   height: 100%;
+  width: calc(100% - 30px);
   background-color: transparent;
   border: 2px rgba(29, 0, 91, 0.17) solid;
   border-radius: 8px;
