@@ -40,7 +40,7 @@ const QuizComponent = () => {
     }
 
     setTimeout(() => {
-      if (currentQuestionIndex < totalQuestions - 1) {
+      if (currentQuestionIndex < totalQuestions) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         setSelectedAnswer('');
         setDis({ pointerEvents: 'auto' });
