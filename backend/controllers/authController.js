@@ -114,7 +114,7 @@ module.exports.forgotPassword = async (req, res, next) => {
         await addToken(email, resetToken) // On stocke le token dans la bdd
 
         // On envoie le mail contenant le lien de réinitialisation
-        const resetLink = `http://localhost:3000/resetPassword/${resetToken}` // METTRE A JOUR AVEC LIEN RENDER !!!!!! ---------------------------------------------
+        const resetLink = `http://localhost:5173/resetPassword/${resetToken}` // METTRE A JOUR AVEC LIEN RENDER !!!!!! ---------------------------------------------
         await sendResetEmail(user.email, resetLink)
 
         return res.json({ success: true, msg: "Un email de réinitialisation du mot de passe a été envoyé à votre adresse email." })
