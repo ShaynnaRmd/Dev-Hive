@@ -12,6 +12,7 @@ import "../assets/css/quizz.css";
 import Dashboard from "../Pages/Dashboard";
 import ResetPassword from "../Pages/ResetPassword";
 import SendResetPassword from "../Pages/SendResetPassword";
+import { QuizzView } from "../Pages/Quizzview";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/profil" element={<Profile />}></Route>
-          <Route path="/quiz/:stack" element={<QuizComponent />}></Route>
+          <Route path="/quiz/:Quizz" element={<QuizComponent />}></Route>
+          <Route path="/quizzview" element={<QuizzView />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/resetPassword/:id" element={<ResetPassword />}></Route>
           <Route
