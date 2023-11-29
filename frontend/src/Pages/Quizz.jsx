@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { quizQuestions } from '../functions/quizzliste';
 import { useParams, useNavigate } from 'react-router-dom';
 import OpenAI from "openai";
+import Dashboard from './Dashboard';
 
 
 const QuizComponent = () => {
@@ -16,7 +17,9 @@ const QuizComponent = () => {
   const [estVisible, setEstVisible] = useState(false);
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY ;
 const openai =new OpenAI({ apiKey:apiKey,dangerouslyAllowBrowser: true});
-
+const gotoDashboard =()=>{
+  navigate("/dashboard")
+}
 async function GptQuizz(langage) {
   console.log("attente de reponse")
   const completion = await openai.chat.completions.create({
@@ -158,7 +161,7 @@ useEffect(() => {
               ))}
             </div>
           ) : (
-            <button className="continuerquizz">Continuer</button>
+            <button className="continuerquizz" onClick={gotoDashboard}>Continuer</button>
           )}
           <div className="progress-info">
             Question {currentQuestionIndex } sur {totalQuestions}
