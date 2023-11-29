@@ -19,6 +19,7 @@ import PageNotFound from "../Pages/404";
 function App() {
   return (
     <>
+
       <BrowserRouter>
         <Routes>
        
@@ -37,6 +38,7 @@ function App() {
            <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </BrowserRouter>
+
     </>
   );
 }

@@ -15,17 +15,14 @@
     opacity: 0;
     transform: scale(0.8);
     overflow: hidden;
-    animation: scaling 0.5s ease-in-out forwards ;
   }
-  @keyframes scaling{
-    0%{
-      opacity: 0;
-      transform:translate(-50%, -50%) scale(0.8);
-    }
-    100%{
-      opacity: 1;
-      transform:translate(-50%, -50%) scale(1);
-    }
+  .Nothing{
+    display: flex;
+    color: rgba(0, 0, 0, 0.395);
+    font-size:40px;
+    position: absolute;
+    left: 50%;top:50%;
+    transform: translate(-50%,-50%);
   }
   .question {
     font-size: 22px;
