@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "../components/Dashboard/Dashboard.module.css";
-import defaultBanner from "../assets/images/default_banner.png";
-import defaultProfilePicture from "../assets/images/anonymous.jpg";
+import defaultBanner from "../assets/images/default_banner2.jpg";
+import defaultProfilePicture from "../assets/images/user.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -117,7 +117,7 @@ export default function Dashboard() {
                 </div>
                 <div className={styles.addXp}>
                   <button onClick={() => navigate("/quizzview")}>
-                    + Ajouter une expérience
+                    + Ajouter une certification
                   </button>
                 </div>
               </div>
