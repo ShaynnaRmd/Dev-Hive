@@ -7,6 +7,7 @@ import { Register } from "../Pages/Register";
 import { Login } from "../Pages/Login";
 import { Profile } from "../Pages/Profile";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+
 import QuizComponent from "../Pages/Quizz";
 import "../assets/css/quizz.css";
 import Dashboard from "../Pages/Dashboard";
@@ -18,6 +19,7 @@ import PageNotFound from "../Pages/404";
 function App() {
   return (
     <>
+
       <BrowserRouter>
         <Routes>
        
@@ -36,6 +38,7 @@ function App() {
            <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </BrowserRouter>
+
     </>
   );
 }

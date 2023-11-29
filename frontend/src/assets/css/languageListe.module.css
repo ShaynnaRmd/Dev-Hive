@@ -1,31 +1,26 @@
-.langage{
-    width: calc(80%/4.4);
-    font-weight: 800;
-    height: 45px;
-    padding: 2em;
-    background: rgba(115, 115, 115, 0.123);
-    border-radius: 0.3em;
-   
-    cursor: pointer;
-    transition: all 0.2s;
-    color: rgba(0, 0, 0, 0.692);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.5s;
+body{
+    overflow: hidden;
 }
-.langage:hover{
-    transform: scale(0.95);
-}
-.containerQuizzListe {
-    justify-content: center;
+
+.containerQuizzListe{
+    width:80%;
+    height: 80%;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    background-color:white;
+    border: solid 2px #efefff;
     display: flex;
     flex-wrap: wrap;
-    gap:1em;
-
+    padding: 1em;
+    padding-top: 0;
+    gap: 1em;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
-
 h1{
     width: 100%;
     color: #00000098;
@@ -35,5 +30,45 @@ h1{
     background-color: white;
     z-index: 2;
     padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    padding-bottom:0.5em
+}
+.containerQuizzListe::-webkit-scrollbar{
+    background-color:rgba(255, 0, 0, 0);
+    padding: 1em;
+}
+.containerQuizzListe::-webkit-scrollbar{
+    width:5px;
+}
+.containerQuizzListe::-webkit-scrollbar-thumb{background:black;
+border-radius:1em;}
+.langage{
+    width:calc(80%/4.4);
+    font-weight: 800;
+    height:45px;
+    padding: 2em;
+    background: rgba(115, 115, 115, 0.123);
+    border-radius: 0.3em;
+    cursor: pointer;
+    transition:all 0.2s;
+    color: rgba(0, 0, 0, 0.692);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.langage:hover{
+    transform: scale(0.95);
+
+}
+
+@media screen and (max-width:1224px) {
+    .containerQuizzListe{
+        justify-content: center;
+    }
+}
+@media screen and (max-width:780px) {
+    .containerQuizzListe{
+        justify-content: center;
+    }
+    .langage{width:100%}
 }
