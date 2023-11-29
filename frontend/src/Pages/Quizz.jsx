@@ -4,8 +4,22 @@ import { useParams, useNavigate } from "react-router-dom";
 import OpenAI from "openai";
 
 const QuizComponent = () => {
+<<<<<<< HEAD
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
   const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
+=======
+   const navigate = useNavigate();
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [score, setScore] = useState(0);
+  const [dis, setDis] = useState({ pointerEvents: 'auto' });
+  const [questions, setQuestions] = useState( quizQuestions["null"]);
+  const [totalQuestions,setTotalQuestion]=useState(5)
+  const { Quizz } = useParams();
+  const [estVisible, setEstVisible] = useState(false);
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY ;
+const openai =new OpenAI({ apiKey:apiKey,dangerouslyAllowBrowser: true});
+>>>>>>> e6e59c3 (final Quizz Gpt)
 
   async function GptQuizz(langage) {
     console.log("attente de reponse");
@@ -67,15 +81,31 @@ const QuizComponent = () => {
     setEstVisible(true);
   }
 
+
   const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [selectedAnswer, setSelectedAnswer] = useState("");
   const [score, setScore] = useState(0);
-  const [dis, setDis] = useState({ pointerEvents: 'auto' });
-  const [questions, setQuestions] = useState( quizQuestions["null"]);
-  const [totalQuestions,setTotalQuestion]=useState(5)
+  const [dis, setDis] = useState({ pointerEvents: "auto" });
+  const [questions, setQuestions] = useState(quizQuestions["null"]);
+  const [totalQuestions, setTotalQuestion] = useState(5);
   const { Quizz } = useParams();
   const [estVisible, setEstVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (Quizz !== undefined) {
+        console.log(Quizz);
+        GptQuizz(Quizz);
+      } else {
+        console.log("erreur");
+        setEstVisible(false);
+        setQuestions(quizQuestions["null"]);
+      }
+    }, 500);
+  }, []);
+
+
  
 useEffect(() => {
   setTimeout(() => {
@@ -93,6 +123,7 @@ useEffect(() => {
     setQuestions(quizQuestions["null"]);
   } }, 500);
 }, [])
+>>>>>>> e6e59c3 (final Quizz Gpt)
   const handleAnswerClick = (answer) => {
     setDis({ pointerEvents: "none" });
     if (answer === questions[currentQuestionIndex].correctAnswer) {
@@ -181,9 +212,19 @@ useEffect(() => {
             Question {currentQuestionIndex} sur {totalQuestions}
           </div>
         </div>
+<<<<<<< HEAD
+      ) : (
+        <>
+          <div className="Nothing">Chargement...</div>
+          <div className="surmesure">
+            On crée un Quizz sur mesure pour vous 🏗️✨✨
+          </div>
+        </>
+=======
       ) : (<>
-        <div className="Nothing">Chargement...</div>
+        <div className="Nothing">Conception du quizz...</div>
         <div className="surmesure">On crée un Quizz sur mesure pour vous 🏗️✨✨</div></>
+>>>>>>> e6e59c3 (final Quizz Gpt)
       )}
     </>
   );
