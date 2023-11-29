@@ -7,12 +7,6 @@ import blob2 from "../assets/svg/blob2.svg";
 export function LandingPage() {
   const navigate = useNavigate();
 
-  const Navigation = (e) => {
-    e.preventDefault();
-    const id = e.target.id;
-    navigate(`register/${id}`);
-  };
-
   return (
     <>
       <div className="containerlanding1">
@@ -70,8 +64,12 @@ export function LandingPage() {
           </div>
         </div>
         <div className="landingBtnContenair">
-          <button id="student">connecter vous</button>
-        
+          <button id="student" onClick={() => navigate("/login")}>
+            Connexion
+          </button>
+          <button id="student" onClick={() => navigate("/register")}>
+            Inscription
+          </button>
         </div>
       </div>
     </>
