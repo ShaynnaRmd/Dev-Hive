@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 
 
 export function QuizzView(){
+  
     const navigate = useNavigate()
     const couleursClaires = [
         "#F1E5A6",
@@ -27,16 +28,15 @@ export function QuizzView(){
       const langage=[  "JavaScript",
       "Python",
       "Java",
-      "C++",
       "php",
-      "C#",
+      "Csharp",
       "Ruby",
       "PHP",
       "Swift",
       "Go",
       "Rust",
       "TypeScript",
-      "node",
+      "Node",
     "React"]
 
       const handlechoice=(e)=>{

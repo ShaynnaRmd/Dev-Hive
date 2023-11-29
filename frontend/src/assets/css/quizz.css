@@ -12,9 +12,21 @@
     background-color: var(--white);
     color: var(--black);
     border: solid 2px rgba(36, 6, 61, 0.137);
+    opacity: 0;
+    transform: scale(0.8);
     overflow: hidden;
+    animation: scaling 0.5s ease-in-out forwards ;
   }
-  
+  @keyframes scaling{
+    0%{
+      opacity: 0;
+      transform:translate(-50%, -50%) scale(0.8);
+    }
+    100%{
+      opacity: 1;
+      transform:translate(-50%, -50%) scale(1);
+    }
+  }
   .question {
     font-size: 22px;
     font-weight: bold;
@@ -59,7 +71,43 @@
     top:50%;
     transform: translate(-50%,-50%);
     color: rgba(0, 0, 0, 0.587);
+    animation: blink 1s infinite;
   }
+  .containerQuizzListe {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap:1em;
+
+}
+.surmesure{
+  position:absolute;
+  left:50%;
+  top:60%;
+  opacity: 0;
+  transform: translate(-200%,-30%);
+  color: rgba(0, 0, 0, 0.587);
+  animation: apparition 1s ease forwards;
+  animation-delay: 4s;
+}
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%,-30%); 
+  }
+}
   .answers button .p{
     position:relative;
     

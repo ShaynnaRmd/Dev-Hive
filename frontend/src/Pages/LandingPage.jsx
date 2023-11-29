@@ -70,9 +70,8 @@ export function LandingPage() {
           </div>
         </div>
         <div className="landingBtnContenair">
-          <button id="student">Etudiant</button>
-          <h2 style={{ color: "black" }}>Vous etes</h2>
-          <button id="compagny">Entreprise</button>
+          <button id="student">connecter vous</button>
+        
         </div>
       </div>
     </>
