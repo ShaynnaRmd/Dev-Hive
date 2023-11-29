@@ -1,0 +1,39 @@
+/* styles.css (ou tout autre nom de fichier CSS de votre choix) */
+
+/* Style pour le conteneur principal */
+.div {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Style pour le titre */
+  .h1 {
+    font-size: 2em;
+    color: #333;
+  }
+  
+  /* Style pour le paragraphe de description */
+  .p {
+    font-size: 1.2em;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  /* Style pour le lien de retour à la page d'accueil */
+  .a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+  }
+  
+  /* Style pour le lien au survol */
+  .a:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+  

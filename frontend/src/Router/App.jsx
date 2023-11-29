@@ -13,12 +13,14 @@ import Dashboard from "../Pages/Dashboard";
 import ResetPassword from "../Pages/ResetPassword";
 import SendResetPassword from "../Pages/SendResetPassword";
 import { QuizzView } from "../Pages/Quizzview";
+import PageNotFound from "../Pages/404";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+       
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
@@ -31,6 +33,7 @@ function App() {
             path="/sendresetpassword"
             element={<SendResetPassword />}
           ></Route>
+           <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </BrowserRouter>
     </>
