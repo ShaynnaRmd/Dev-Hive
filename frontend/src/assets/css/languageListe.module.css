@@ -5,6 +5,7 @@
     padding: 2em;
     background: rgba(115, 115, 115, 0.123);
     border-radius: 0.3em;
+   
     cursor: pointer;
     transition: all 0.2s;
     color: rgba(0, 0, 0, 0.692);
@@ -14,7 +15,7 @@
     cursor: pointer;
     transition: all 0.5s;
 }
-.langage{
+.langage:hover{
     transform: scale(0.95);
 }
 .containerQuizzListe {
