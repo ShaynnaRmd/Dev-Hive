@@ -110,9 +110,9 @@ module.exports.forgotPassword = async (req, res, next) => {
         }
 
         const alphanumericToken = generateAlphanumericToken()
-        const resetToken = jwt.sign({ userId:user._id }, alphanumericToken, { expiresIn: '1h' }) // On génère un token temporaire
+        // const resetToken = jwt.sign({ userId:user._id }, alphanumericToken, { expiresIn: '1h' }) // On génère un token temporaire
 
-        // const resetToken = jwt.sign({ userId:user._id }, JWT_KEY, { expiresIn: '1h' }) // On génère un token temporaire
+        const resetToken = jwt.sign({ userId:user._id }, JWT_KEY, { expiresIn: '1h' }) // On génère un token temporaire
 
         await addToken(email, resetToken) // On stocke le token dans la bdd
 
