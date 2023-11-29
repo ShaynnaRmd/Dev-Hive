@@ -52,12 +52,16 @@ export function QuizzView(){
     
         const choisirCouleurAleatoire = (e) => {
           const couleurAleatoire = couleursClaires[Math.floor(Math.random() * couleursClaires.length)];
-          e.target.style.backgroundColor=couleurAleatoire
+          e.target.style.boxShadow=`inset 300px 0px 0px ${couleurAleatoire }, 0px 2px 30px  rgba(1, 1, 1, 0.123)`
+          e.target.style.transform ='scale(1.05)'
           e.target.style.color='rgba(0, 0, 0, 0.429)'
+          e.target.style.transition='all 0.5s'
         };
         const leave=(e)=>{
-            e.target.style.backgroundColor="rgba(115, 115, 115, 0.123)"
+            e.target.style.boxShadow="inset 0px 0px 0px rgba(115, 115, 115, 0.123), 0px 2px 30px  rgba(1, 1, 1, 0)"
             e.target.style.color="rgba(0, 0, 0, 0.692)"
+            e.target.style.transition='all 0.5s'
+            e.target.style.transform ='scale(1)'
         }
     return (
         <>
@@ -68,6 +72,7 @@ export function QuizzView(){
                 <div onClick={handlechoice} onMouseEnter={choisirCouleurAleatoire}
                 onMouseLeave={leave}
                 className={langagecss.langage}>
+                  
                     {lang}
                 </div>
          ))

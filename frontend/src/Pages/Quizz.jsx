@@ -69,26 +69,30 @@ const QuizComponent = () => {
 
   const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [selectedAnswer, setSelectedAnswer] = useState('');
   const [score, setScore] = useState(0);
-  const [dis, setDis] = useState({ pointerEvents: "auto" });
-  const [questions, setQuestions] = useState(quizQuestions["null"]);
-  const [totalQuestions, setTotalQuestion] = useState(5);
+  const [dis, setDis] = useState({ pointerEvents: 'auto' });
+  const [questions, setQuestions] = useState( quizQuestions["null"]);
+  const [totalQuestions,setTotalQuestion]=useState(5)
   const { Quizz } = useParams();
   const [estVisible, setEstVisible] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (Quizz !== undefined) {
-        console.log(Quizz);
-        GptQuizz(Quizz);
-      } else {
-        console.log("erreur");
-        setEstVisible(false);
-        setQuestions(quizQuestions["null"]);
-      }
-    }, 500);
-  }, []);
+ 
+useEffect(() => {
+  setTimeout(() => {
+    
+ 
+  if (Quizz !== undefined) {
+         
+      console.log(Quizz);
+      GptQuizz(Quizz);
+ 
+    }
+   else {
+    console.log("erreur");
+    setEstVisible(false);
+    setQuestions(quizQuestions["null"]);
+  } }, 500);
+}, [])
   const handleAnswerClick = (answer) => {
     setDis({ pointerEvents: "none" });
     if (answer === questions[currentQuestionIndex].correctAnswer) {
@@ -125,7 +129,9 @@ const QuizComponent = () => {
 
   const progressPercentage = (currentQuestionIndex / totalQuestions) * 100;
 
+
   return (
+
     <>
       {estVisible || totalQuestions == null ? (
         <div className="quiz-container">
@@ -155,6 +161,7 @@ const QuizComponent = () => {
                   key={option}
                   className={getButtonClass(option)}
                   onClick={() => handleAnswerClick(option)}
+                  
                 >
                   <p className="p">
                     {questions[currentQuestionIndex][`reponse${option}`]}
@@ -174,13 +181,9 @@ const QuizComponent = () => {
             Question {currentQuestionIndex} sur {totalQuestions}
           </div>
         </div>
-      ) : (
-        <>
-          <div className="Nothing">Chargement...</div>
-          <div className="surmesure">
-            On crée un Quizz sur mesure pour vous 🏗️✨✨
-          </div>
-        </>
+      ) : (<>
+        <div className="Nothing">Chargement...</div>
+        <div className="surmesure">On crée un Quizz sur mesure pour vous 🏗️✨✨</div></>
       )}
     </>
   );
