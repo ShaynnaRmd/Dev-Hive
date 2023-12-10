@@ -23,11 +23,11 @@ Notre projet cible donc les jeunes développeurs, à terme nous souhaitons égal
 
 #### Exemple de diagramme d'architecture (mermaid)
 
-![Alt text](image-1.png)
+![Alt text](<Schéma architecture technique-1.png>)
 
 #### Exemple de diagramme de base de données (mermaid)
 
-![Alt text](image.png)
+![Alt text](<Schéma BDD.png>)
 
 ### 2.2 Choix Technologiques
 
