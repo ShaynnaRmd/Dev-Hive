@@ -12,87 +12,130 @@ ProDev/DevHive est un projet permettant aux développeurs junior de tester leurs
 Le but est de rassembler et fédérer une communauté autour du projet afin que chacun puisse se tester, s'amuser et augmenter ses compétences et ses capacités.
 Notre projet cible donc les jeunes développeurs, à terme nous souhaitons également intégrer des fonctionnalités pour mettre en relation jeunes étudiants et entreprises.
 
-## Equipe
+## 2. Spécifications Techniques
 
-Notre équipe est composée de :
+### 2.1 Architecture Système
 
-- 3 développeurs front-end
-- 2 développeurs back-end
+- Architecture Globale :
+- Utilisation d'un mono repository
+- Diagrammes d'Architecture : Inclure des diagrammes pour illustrer l'architecture.
+- Diagramme de base de données
 
-## Stack
+#### Schéma d'architecture
 
-Notre Stack technique est composée de :
+![Alt text](<Schéma architecture technique-1.png>)
 
-- Frontend : [React]
-- Backend : [NodeJS] - [Express]
-- BDD : [MongoDB] ([Mongoose])
-- Ops : GitHub Actions
+#### Diagramme de base de données
 
-## Bonnes pratiques
+![Alt text](<Schéma BDD.png>)
 
-- Nous utilisons une approche clean code.
+### 2.2 Choix Technologiques
 
-### Tests
+- Langages de Programmation : JS.
+- Frameworks et Bibliothèques : Stack MERN, ReactJS, NodeJS, ExpressJS.
+- Base de Données : NOSQL, MongoDB, Mongoose.
+- Outils de Développement : VsCode, Git.
 
-- Approche TDD
-- Jest + Cypress + Puppeteer
+Indiquer les raisons pour lesquelles ces technologies ont été choisies (ex : performance, communauté, etc.). Une manière souvent utilisée est de comparer les technologies entre elles avec un tableau.
 
-### Variable d'environnements
+| Technologie | Avantages                                                                                                                                    | Inconvénients                                                    |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| React       | Connue par le Groupe, Grandes communauté et ressources dispos en ligne, Fragmentation de l'application, recherché dans le monde professionel |                                                                  |
+| NodeJS      | Coté serveur géré avec du javascript, Faciliter de déploiement avec render, grande communauté                                                |                                                                  |
+| ExpressJs   | Création d'un serveur rapidement et facilement                                                                                               |                                                                  |
+| CssModules  | Evite les conflits de css, libérté de customisation importantes                                                                              | Répétitions de codes, écriture chrnonphage car cela reste du css |
 
-### CI/CD
+Vous pouvez également donner une note sur 5.
 
-### Linter
+| Critère           | React | NodeJS | Express |
+| ----------------- | ----- | ------ | ------- |
+| **Documentation** | 5/5   | 3/5    | 4/5     |
+| **Popularité**    | 5/5   | 4/5    | 4/5     |
+| **Performance**   | 4/5   | 4/5    | 4/5     |
+| **Connaissance**  | 3/5   | 1/5    | 1/5     |
+| **Total**         | 17/20 | 12/20  | 13/20   |
 
-### Git
+### 2.3 Interfaces Système
 
-### Design Pattern
+- APIs Externes : Utilisation de l'API d'OpenAI afin de générés des quizzs.
+- Intégration de Systèmes : Appel vers l'API depuis notre Front-End.
 
-### Microservices
+## 3. Développement
 
-## Choix techniques
+### 3.1 Gestion de Version
 
-### Frontend
+- Outils de Gestion de Version : Git, pas de Git Master chacun fais sa review de code
 
-Nos possibilités étaient :
+### 3.2 Normes de Codage
 
-- Front end Vanilla (HTML, CSS, JavaScript)
-- [React]
+- Style de Codage : ES6, camel case.
+-
 
-<!-- Tableau markdown 5 lignes, 5 colonnes -->
+## 4. Déploiement et Maintenance
 
-| Nom   | Connaissance | Envie | Documentation | Commentaires |
-| ----- | ------------ | ----- | ------------- | ------------ |
-| React | /5           | /5    | /5            |              |
+### 4.1 Environnements
 
-- Nous implémentons React dans l'ensemble de l'application.
+- Hébérgement: Hébéergement du back avec Render, Hébergement du Front avec Vercel.
 
-### Backend
+## 5. Documentation
 
-Nos possibilités étaient :
+### 5.1 Documentation Technique
 
-- [PHP]
-- [Node]
+- Code Source : Commentaires, documentation intégrée.
+- Documentation Externe : Outils et format (ex : Wiki, ReadTheDocs).
 
-<!-- Tableau markdown 5 lignes, 5 colonnes -->
+### 5.2 Documentation Utilisateur
 
-| Nom  | Connaissance | Envie | Documentation | Commentaires              |
-| ---- | ------------ | ----- | ------------- | ------------------------- |
-| PHP  | 4/5          | 3/5   | 4/5           | Connus par toute l'équipe |
-| Node | 1/5          | 5/5   | 4/5           | Maitrisé par 1 personne   |
+- Manuels Utilisateur : Guides, FAQ, etc.
+- Formation : Matériaux et sessions de formation prévus.
 
-- Nous implémentons Node (Express) pour le backend pour complémenter l'implémentaion de React pour le frontend et de MongoDB pour la base de données et ainsi réaliser une MERN application.
+### 6. Features
 
-## Schéma de l'application
+- Liste des fonctionnalités du projet.
+- Temps estimé par taches
+- Scope défini
+- Priorité définie
+- Date de fin
+- Lien des services utilisés (jira, trello, notion, linear)
+- Capture d'écran de diagramme de gantt
 
-![Schema Application](<Schéma architecture technique.png>)
+#### Exemple de plannification de taches
 
-## Schéma de la base de données
+##### Liste des Fonctionnalités du Projet
 
-![Schema BDD](<Shema BDD.png>)
+1. **BDD** : Créer les utilisateurs en BDD.
+2. **Auth** : Implémenter JWT.
+3. **Routes** : Route et controller de Login / Signup.
+4. **Frontend-Auth** : Créer frontend Login / Signup.
+5. **Frontend Profile**: Créer Profil user.
+6. **Frontend Quizz**: Créer quizz
+7. **Email** : Envoie d'email de réinitialisation.
 
-## Documentation API
+##### Temps Estimé par Tâche
 
-## Outils gestion de projet
+- **Tâche BDD** : 1 jours.
+- **Tâche Auth** : 3 jours.
+- **Tâche Routes** : 3 jours.
+- **Tâche Frontend-Auth** : 1 jour.
+- **Tâche Frontend Profile** : 1 jours.
+- **Frontend Quizz**: 3 jours.
+- **Tâche Email** : 1 jours.
 
-- Figma
-- GitHub
+##### Scope Défini
+
+- **Phase 1** : Implémentation des fonctionnalités BDD et Auth.
+- **Phase 2** : Développement des fonctionnalités Routes et Frontend.
+- **Phase 3** : Développement de la fonctionnalités envoie d'email de réinitialisation.
+- **Phase 4** : Développement création profil utilisateur Back et Front.
+- **Phase 5** : Implémentation API OpenAI et création des quizz Frontend
+- **Phase 6** : Test des nos fonctionnalités.
+
+##### Priorité Définie
+
+1. **Haute** : BDD, Routes
+2. **Moyenne** : Auth, Frontend, Quizz
+3. **Basse** : Profil, Email
+
+##### Date de Fin
+
+- **Date Prévue** : 29/11/23
