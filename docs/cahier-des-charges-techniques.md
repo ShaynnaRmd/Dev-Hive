@@ -16,10 +16,7 @@ Notre projet cible donc les jeunes développeurs, à terme nous souhaitons égal
 
 ### 2.1 Architecture Système
 
-- Architecture Globale :
-- Utilisation d'un mono repository
-- Diagrammes d'Architecture : Inclure des diagrammes pour illustrer l'architecture.
-- Diagramme de base de données
+- Architecture Globale : Utilisation d'un mono repository
 
 #### Schéma d'architecture
 
@@ -36,14 +33,12 @@ Notre projet cible donc les jeunes développeurs, à terme nous souhaitons égal
 - Base de Données : NOSQL, MongoDB, Mongoose.
 - Outils de Développement : VsCode, Git.
 
-Indiquer les raisons pour lesquelles ces technologies ont été choisies (ex : performance, communauté, etc.). Une manière souvent utilisée est de comparer les technologies entre elles avec un tableau.
-
 | Technologie | Avantages                                                                                                                                    | Inconvénients                                                    |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| React       | Connue par le Groupe, Grandes communauté et ressources dispos en ligne, Fragmentation de l'application, recherché dans le monde professionel |                                                                  |
+| React       | Connue par le Groupe, Grande communauté et ressources dispos en ligne, Fragmentation de l'application, recherché dans le monde professionel |                                                                  |
 | NodeJS      | Coté serveur géré avec du javascript, Faciliter de déploiement avec render, grande communauté                                                |                                                                  |
 | ExpressJs   | Création d'un serveur rapidement et facilement                                                                                               |                                                                  |
-| CssModules  | Evite les conflits de css, libérté de customisation importantes                                                                              | Répétitions de codes, écriture chrnonphage car cela reste du css |
+| CssModules  | Evite les conflits de css, libérté de customisation importantes                                                                              | Répétitions de codes, écriture chronophage car cela reste du css |
 
 Vous pouvez également donner une note sur 5.
 
@@ -57,19 +52,18 @@ Vous pouvez également donner une note sur 5.
 
 ### 2.3 Interfaces Système
 
-- APIs Externes : Utilisation de l'API d'OpenAI afin de générés des quizzs.
+- APIs Externes : Utilisation de l'API d'OpenAI afin de générer des quizz.
 - Intégration de Systèmes : Appel vers l'API depuis notre Front-End.
 
 ## 3. Développement
 
 ### 3.1 Gestion de Version
 
-- Outils de Gestion de Version : Git, pas de Git Master chacun fais sa review de code
+- Outils de Gestion de Version : Git, pas de Git Master chacun fait sa review de code
 
 ### 3.2 Normes de Codage
 
 - Style de Codage : ES6, camel case.
--
 
 ## 4. Déploiement et Maintenance
 
@@ -91,35 +85,25 @@ Vous pouvez également donner une note sur 5.
 
 ### 6. Features
 
-- Liste des fonctionnalités du projet.
-- Temps estimé par taches
-- Scope défini
-- Priorité définie
-- Date de fin
-- Lien des services utilisés (jira, trello, notion, linear)
-- Capture d'écran de diagramme de gantt
-
-#### Exemple de plannification de taches
-
 ##### Liste des Fonctionnalités du Projet
 
 1. **BDD** : Créer les utilisateurs en BDD.
 2. **Auth** : Implémenter JWT.
 3. **Routes** : Route et controller de Login / Signup.
 4. **Frontend-Auth** : Créer frontend Login / Signup.
-5. **Frontend Profile**: Créer Profil user.
+5. **Frontend Profile**: Créer Profil utilisateur.
 6. **Frontend Quizz**: Créer quizz
 7. **Email** : Envoie d'email de réinitialisation.
 
 ##### Temps Estimé par Tâche
 
-- **Tâche BDD** : 1 jours.
+- **Tâche BDD** : 1 jour.
 - **Tâche Auth** : 3 jours.
 - **Tâche Routes** : 3 jours.
 - **Tâche Frontend-Auth** : 1 jour.
-- **Tâche Frontend Profile** : 1 jours.
+- **Tâche Frontend Profile** : 1 jour.
 - **Frontend Quizz**: 3 jours.
-- **Tâche Email** : 1 jours.
+- **Tâche Email** : 1 jour.
 
 ##### Scope Défini
 
@@ -128,7 +112,7 @@ Vous pouvez également donner une note sur 5.
 - **Phase 3** : Développement de la fonctionnalités envoie d'email de réinitialisation.
 - **Phase 4** : Développement création profil utilisateur Back et Front.
 - **Phase 5** : Implémentation API OpenAI et création des quizz Frontend
-- **Phase 6** : Test des nos fonctionnalités.
+- **Phase 6** : Test de nos fonctionnalités.
 
 ##### Priorité Définie
 
