@@ -17,6 +17,10 @@ export function LandingPage() {
           <h1 className="titrelanding">
             Découvrez la <span>Révolution</span> de la Mise en Relation{" "}
             <span>Étudiant-Entreprise !</span>{" "}
+           
+     
+   
+ 
           </h1>
           <div className="paragraphe">
             Bienvenue sur notre plateforme innovante, le premier site de mise en
@@ -26,51 +30,40 @@ export function LandingPage() {
             rencontre des talents étudiant.
           </div>
         </div>
-        <div className="cardcontenaire">
-          <div className="card_info">
-            <h2> Une Approche Inversée </h2>
-            <p>
-              {" "}
-              Contrairement aux autres plateformes, ici, ce sont les entreprises
-              qui initient le contact. Elles peuvent parcourir les profils
-              d'étudiants, découvrir leurs compétences et leurs aspirations,
-              puis les inviter à rejoindre leurs équipes. C'est un moyen
-              efficace et direct de trouver les talents qui correspondent
-              parfaitement à leurs besoins.
-            </p>
-          </div>
-
-          <div className="card_info">
-            <h2>Des Opportunités Personnalisées</h2>
-            <p>
-              {" "}
-              Chaque entreprise peut affiner sa recherche en fonction de
-              critères spécifiques tels que les compétences techniques, les
-              domaines d'études, l'expérience professionnelle, etc. Cela
-              garantit des correspondances précises et des opportunités
-              personnalisées pour les étudiants.
-            </p>
-          </div>
-
-          <div className="card_info">
-            <h2> Un Accès Facile et Rapide</h2>
-            <p>
-              Notre interface conviviale permet aux entreprises de naviguer en
-              toute simplicité et de trouver les profils d'étudiants qui
-              répondent à leurs exigences. En quelques clics, elles peuvent
-              envoyer des invitations et entrer en contact avec les futurs
-              leaders de demain.
-            </p>
-          </div>
-        </div>
-        <div className="landingBtnContenair">
-          <button id="student" onClick={() => navigate("/login")}>
+        <div className="landingBtnContenair">   <button id="student" onClick={() => navigate("/login")}>
             Connexion
           </button>
           <button id="student" onClick={() => navigate("/register")}>
             Inscription
-          </button>
+          </button>     </div>
+        <div className="cardcontenaire">
+          <div className="card_info">
+          
+            <p>
+              {" "}
+              Contrairement aux autres plateformes, ici, ce sont les entreprises
+              qui initient le contact. 
+            </p>
+          </div>
+
+          <div className="card_info">
+           
+            <p>
+              {" "}
+              Chaque entreprise peut affiner sa recherche en fonction de
+              critères spécifiques tels que les compétences techniques.
+            </p>
+          </div>
+
+          <div className="card_info">
+          
+            <p>
+              Notre interface conviviale permet aux entreprises de naviguer en
+              toute simplicité et de trouver les profils d'étudiants.
+            </p>
+          </div>
         </div>
+      
       </div>
     </>
   );
