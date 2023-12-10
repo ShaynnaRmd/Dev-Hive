@@ -139,3 +139,27 @@ Vous pouvez également donner une note sur 5.
 ##### Date de Fin
 
 - **Date Prévue** : 29/11/23
+
+## 7. Annexes
+
+### 7.1 Maquettes
+
+![Alt text](ProfileProDev.png)
+![Alt text](QuizzProDev.png)
+
+## 8. Conclusion
+
+### - Nos fonctionnalités :
+
+    - Inscription.
+    - Connexion.
+    - Réinitialisation mot de passe.
+    - Création d'un profil.
+    - Création de quizz à partir de OpenAI.
+    - Affichage résultat et création de badges.
+
+### - A venir :
+
+    - Envoie d'un certificat par mail lors d'un quizz réussi.
+    - Création de profil entreprise.
+    - Possibilité de mentorat (Prise de contact entre étudiant).
